@@ -7,13 +7,13 @@ using Xceed.Words.NET;
 
 namespace Patient_Manager.Interfaces
 {
-    internal interface FileInterface<formatFile>
+    internal interface IFile
     {
         string CreationDate { get; set; }
         string MonthName { get; set; }
         string Format { get; set; }
         string Source { get; set; }
 
-        formatFile RepairFile();
+        Object RepairFile();
     }
 }

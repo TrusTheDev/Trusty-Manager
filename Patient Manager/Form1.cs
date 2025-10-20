@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Patient_Manager.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Xceed.Document.NET;
 using Xceed.Words.NET;
 using static Patient_Manager.Controllers.DateController;
-using static Patient_Manager.Controllers.gridViewController;
-using System.IO.Compression;
-using Patient_Manager.Models;
+using static Patient_Manager.Controllers.GridViewController;
 
 
 
@@ -25,13 +26,12 @@ namespace Patient_Manager
         {
             InitializeComponent();
             label1.Text = GetDate();
-
-
-            DocXModel model = new DocXModel("2024", PatientDocPath + "Septiembre", ".docx");
-            dataGridView2 = docxToGridView(dataGridView2, model.Document);
-
-
-
+            DocumentModelList documentList = new DocumentModelList(PatientDocPath);
+            var document = documentList[1] ;
+            dataGridView = documentToGridView(document, dataGridView);
+            
+                
+         
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -41,6 +41,11 @@ namespace Patient_Manager
         }
 
         private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }

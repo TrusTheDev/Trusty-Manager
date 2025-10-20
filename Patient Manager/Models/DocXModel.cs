@@ -10,7 +10,7 @@ using Xceed.Words.NET;
 
 namespace Patient_Manager.Models
 {
-    internal class DocXModel : FileInterface<DocX>
+    internal class DocXModel : IFile
     {
         public DocX Document { get; set; }
         public string CreationDate { get; set; }
@@ -25,10 +25,10 @@ namespace Patient_Manager.Models
             MonthName = monthName;
             Format = format;
             Source = MonthName + Format;
-            Document = RepairFile();
+            Document = (DocX) RepairFile();
         }
 
-        public DocX RepairFile()
+        public Object RepairFile()
         {
             string rutaTemporal = "doc_temp.docx";
 

@@ -5,12 +5,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Xceed.Words.NET;
+using Patient_Manager.Interfaces;
 
 namespace Patient_Manager.Controllers
 {
-    internal class gridViewController
+    internal class GridViewController 
     {
-        public static DataGridView docxToGridView(DataGridView gridView, DocX document)
+
+        public static DataGridView documentToGridView(IFile document, DataGridView gridView)
+        {
+            switch (document.Format) { 
+                case ".docx":
+                    DocX docxDocument = (DocX)document.RepairFile();
+                    return DocxToGridView(gridView, docxDocument);
+                default:
+                    throw new NotSupportedException($"El formato de archivo {document.Format} no es soportado.");
+            }
+        }
+        public static DataGridView DocxToGridView(DataGridView gridView, DocX document)
         {
             gridView.Columns.Clear();
             foreach (var table in document.Tables)
@@ -36,6 +48,11 @@ namespace Patient_Manager.Controllers
                 }
             }
             return gridView;
+        }
+
+        public DataGridView DocxToGridView()
+        {
+            throw new NotImplementedException();
         }
     }
 }
