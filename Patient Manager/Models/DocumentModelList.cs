@@ -22,11 +22,16 @@ namespace Patient_Manager.Models
         {
             foreach (var file in System.IO.Directory.GetFiles(path))
             {
+                Console.WriteLine(Path.GetExtension(file).ToLower());
                 switch (Path.GetExtension(file).ToLower())
                 {
                     case ".docx":
                         var docxModel = new DocXModel(Convert.ToString(File.GetCreationTime(path).Year), Path.Combine(path, Path.GetFileNameWithoutExtension(file)), ".docx");
                         AddDocument(docxModel);
+                        break;
+                    case ".xlsx":
+                        var xlsxModel = new XlsXModel(Convert.ToString(File.GetCreationTime(path).Year), Path.Combine(path, Path.GetFileNameWithoutExtension(file)), ".xlsx");
+                        AddDocument(xlsxModel);
                         break;
 
                     default:

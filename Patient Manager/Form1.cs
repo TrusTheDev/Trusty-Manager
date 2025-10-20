@@ -27,7 +27,7 @@ namespace Patient_Manager
             InitializeComponent();
             label1.Text = GetDate();
             DocumentModelList documentList = new DocumentModelList(PatientDocPath);
-            var document = documentList[1] ;
+            var document = documentList[2];
             dataGridView = documentToGridView(document, dataGridView);
             
                 

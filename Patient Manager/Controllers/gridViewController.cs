@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Xceed.Words.NET;
 using Patient_Manager.Interfaces;
+using ClosedXML.Excel;
 
 namespace Patient_Manager.Controllers
 {
@@ -14,13 +15,46 @@ namespace Patient_Manager.Controllers
 
         public static DataGridView documentToGridView(IFile document, DataGridView gridView)
         {
+            Console.WriteLine("documento del formato:" + document.Format);
             switch (document.Format) { 
                 case ".docx":
                     DocX docxDocument = (DocX)document.RepairFile();
                     return DocxToGridView(gridView, docxDocument);
+                case ".xlsx":
+                    XLWorkbook xlsxDocument = (XLWorkbook) document.RepairFile();
+                    return xlsxToGridView(gridView, xlsxDocument);
                 default:
                     throw new NotSupportedException($"El formato de archivo {document.Format} no es soportado.");
             }
+        }
+
+        public static DataGridView xlsxToGridView(DataGridView gridView, XLWorkbook xlsx)
+        {
+            foreach (var worksheet in xlsx.Worksheets)
+            {
+                bool isFirstRow = true;
+                foreach (var row in worksheet.RowsUsed())
+                {
+                    if (isFirstRow)
+                    {
+                        foreach (var cell in row.Cells())
+                        {
+                            gridView.Columns.Add(cell.GetString(), cell.GetString());
+                        }
+                        isFirstRow = false;
+                    }
+                    else
+                    {
+                        List<string> rowData = new List<string>();
+                        foreach (var cell in row.Cells())
+                        {
+                            rowData.Add(cell.GetString());
+                        }
+                        gridView.Rows.Add(rowData.ToArray());
+                    }
+                }
+            }
+            return gridView;
         }
         public static DataGridView DocxToGridView(DataGridView gridView, DocX document)
         {
