@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="Controllers\DateController.cs" />
     <Compile Include="Controllers\gridViewController.cs" />
+    <Compile Include="Controllers\NavigatorController.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

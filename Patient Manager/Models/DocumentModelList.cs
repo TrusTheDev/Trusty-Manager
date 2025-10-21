@@ -39,10 +39,14 @@ namespace Patient_Manager.Models
                 }
             }
         }
-
-        public IFile ReturnLastFile()
+        public int ReturnLastPosition()
         {
-            return DocumentList.Last();
+            return DocumentList.LastIndexOf(DocumentList.Last());
+        }
+
+        public int ReturnFirstPosition()
+        {
+            return DocumentList.LastIndexOf(DocumentList.First());
         }
 
         public IFile this[int index]

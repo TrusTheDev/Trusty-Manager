@@ -1,4 +1,6 @@
-﻿using Patient_Manager.Models;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Patient_Manager.Controllers;
+using Patient_Manager.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,25 +23,28 @@ namespace Patient_Manager
 {
     public partial class Form1 : Form
     {
-        String PatientDocPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\";
+        static String PatientDocPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\";
+        static DocumentModelList documentList = new DocumentModelList(PatientDocPath);
+        static NavigatorController navigator = new NavigatorController(documentList);
+        
         public Form1()
         {
             InitializeComponent();
             label1.Text = GetDate();
-            DocumentModelList documentList = new DocumentModelList(PatientDocPath);
-            var document = documentList[2];
+            var document = navigator.currentFile();
             dataGridView = documentToGridView(document, dataGridView);
-            
-                
-         
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             
-        }
+           
+            
+            
 
+        }
+       
         private void button4_Click(object sender, EventArgs e)
         {
 
@@ -47,7 +52,22 @@ namespace Patient_Manager
 
         private void button2_Click(object sender, EventArgs e)
         {
+            
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+        
+        private void anteriorbtn_Click(object sender, EventArgs e)
+        {
+            dataGridView = documentToGridView(navigator.getPreviousFile(), dataGridView);
+        }
+
+        private void siguientebtn_Click(object sender, EventArgs e)
+        {
+            dataGridView = documentToGridView(navigator.getNextFile(), dataGridView);
         }
     }
 }

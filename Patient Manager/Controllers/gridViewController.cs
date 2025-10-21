@@ -15,7 +15,6 @@ namespace Patient_Manager.Controllers
 
         public static DataGridView documentToGridView(IFile document, DataGridView gridView)
         {
-            Console.WriteLine("documento del formato:" + document.Format);
             switch (document.Format) { 
                 case ".docx":
                     DocX docxDocument = (DocX)document.RepairFile();
