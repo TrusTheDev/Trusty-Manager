@@ -17,7 +17,6 @@ namespace Patient_Manager.Models
             AddDocumentsFromFile(path);
         }
 
-
         public void AddDocumentsFromFile(String path)
         {
             foreach (var file in System.IO.Directory.GetFiles(path))

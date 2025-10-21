@@ -40,13 +40,14 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.addRowbtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // button5
             // 
             this.button5.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button5.Location = new System.Drawing.Point(530, 540);
+            this.button5.Location = new System.Drawing.Point(566, 540);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 4;
@@ -56,7 +57,7 @@
             // button4
             // 
             this.button4.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button4.Location = new System.Drawing.Point(530, 511);
+            this.button4.Location = new System.Drawing.Point(566, 511);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 3;
@@ -78,7 +79,7 @@
             // button2
             // 
             this.button2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button2.Location = new System.Drawing.Point(194, 8);
+            this.button2.Location = new System.Drawing.Point(212, 8);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
@@ -89,7 +90,7 @@
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button1.Location = new System.Drawing.Point(275, 8);
+            this.button1.Location = new System.Drawing.Point(293, 8);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -119,10 +120,11 @@
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5});
-            this.dataGridView.Location = new System.Drawing.Point(28, 37);
+            this.dataGridView.Location = new System.Drawing.Point(44, 37);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(496, 526);
+            this.dataGridView.Size = new System.Drawing.Size(516, 526);
             this.dataGridView.TabIndex = 1;
+            this.dataGridView.CurrentCellChanged += new System.EventHandler(this.CurrentCell);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -149,9 +151,20 @@
             this.dataGridViewTextBoxColumn5.HeaderText = "RRN";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             // 
+            // addRowbtn
+            // 
+            this.addRowbtn.Location = new System.Drawing.Point(12, 73);
+            this.addRowbtn.Name = "addRowbtn";
+            this.addRowbtn.Size = new System.Drawing.Size(25, 23);
+            this.addRowbtn.TabIndex = 7;
+            this.addRowbtn.Text = "+";
+            this.addRowbtn.UseVisualStyleBackColor = true;
+            this.addRowbtn.Click += new System.EventHandler(this.addRowbtn_Click);
+            // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(618, 604);
+            this.ClientSize = new System.Drawing.Size(654, 604);
+            this.Controls.Add(this.addRowbtn);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button5);
@@ -186,6 +199,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.Button addRowbtn;
     }
 }
 

@@ -33,18 +33,14 @@ namespace Patient_Manager
             label1.Text = GetDate();
             var document = navigator.currentFile();
             dataGridView = documentToGridView(document, dataGridView);
-
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
-           
-            
-            
-
+            addRowbtn.Location = new Point(addRowbtn.Location.X, addRowbtn.Parent.PointToClient(dataGridView.PointToScreen(dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false).Location)).Y);
         }
-       
+
         private void button4_Click(object sender, EventArgs e)
         {
 
@@ -68,6 +64,16 @@ namespace Patient_Manager
         private void siguientebtn_Click(object sender, EventArgs e)
         {
             dataGridView = documentToGridView(navigator.getNextFile(), dataGridView);
+        }
+
+        private void CurrentCell(object sender, EventArgs e)
+        {
+            addRowbtn.Location = new Point(addRowbtn.Location.X, addRowbtn.Parent.PointToClient(dataGridView.PointToScreen(dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false).Location)).Y);
+        }
+
+        private void addRowbtn_Click(object sender, EventArgs e)
+        {
+            dataGridView.Rows.Insert(dataGridView.CurrentCell.RowIndex + 1);
         }
     }
 }
