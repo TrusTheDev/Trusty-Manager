@@ -17,6 +17,7 @@ using Xceed.Words.NET;
 using static Patient_Manager.Controllers.DateController;
 using static Patient_Manager.Controllers.GridViewController;
 
+using System.Threading;
 
 
 namespace Patient_Manager
@@ -68,7 +69,10 @@ namespace Patient_Manager
 
         private void CurrentCell(object sender, EventArgs e)
         {
-            addRowbtn.Location = new Point(addRowbtn.Location.X, addRowbtn.Parent.PointToClient(dataGridView.PointToScreen(dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false).Location)).Y);
+            if (dataGridView.CurrentCell != null)
+            {
+                addRowbtn.Location = new Point(addRowbtn.Location.X, addRowbtn.Parent.PointToClient(dataGridView.PointToScreen(dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false).Location)).Y);
+            }
         }
 
         private void addRowbtn_Click(object sender, EventArgs e)

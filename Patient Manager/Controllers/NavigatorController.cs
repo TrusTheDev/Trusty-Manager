@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Patient_Manager.Interfaces;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Patient_Manager.Controllers
 {
@@ -47,6 +49,11 @@ namespace Patient_Manager.Controllers
         public IFile currentFile()
         {
            return List[Pointer]; 
+        }
+
+        public Point getPoint(Button button, DataGridView grid)
+        {
+            return new Point(button.Location.X, button.Parent.PointToClient(grid.PointToScreen(grid.GetCellDisplayRectangle(grid.CurrentCell.ColumnIndex, grid.CurrentCell.RowIndex, false).Location)).Y);
         }
 
     }
