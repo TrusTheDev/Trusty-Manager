@@ -54,5 +54,10 @@ namespace Patient_Manager.Models
             var doc = Xceed.Words.NET.DocX.Load(rutaTemporal);
             return doc;
         }
+
+        public void SaveFile()
+        {
+            Document.Save();
+        }
     }
 }

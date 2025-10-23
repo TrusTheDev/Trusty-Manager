@@ -49,24 +49,31 @@ namespace Patient_Manager
 
         private void anteriorbtn_Click(object sender, EventArgs e)
         {
+            navigator.currentFile().SaveFile();
             dataGridView = documentToGridView(navigator.getPreviousFile(), dataGridView);
+            
         }
 
         private void siguientebtn_Click(object sender, EventArgs e)
         {
+            navigator.currentFile().SaveFile();
             dataGridView = documentToGridView(navigator.getNextFile(), dataGridView);
+            
         }
 
         private void CurrentCell(object sender, EventArgs e)
         {
-            
-                addRowbtn.Top = getSelectedPoint(dataGridView);
-            
+                addRowbtn.Top = getSelectedmiddlePoint(dataGridView, addRowbtn);
         }
 
         private void addRowbtn_Click(object sender, EventArgs e)
         {
             dataGridView.Rows.Insert(dataGridView.CurrentCell.RowIndex + 1);
+        }
+
+        private void onRowHeight(object sender, DataGridViewRowEventArgs e)
+        {
+            addRowbtn.Top = getSelectedmiddlePoint(dataGridView, addRowbtn);
         }
     }
 }

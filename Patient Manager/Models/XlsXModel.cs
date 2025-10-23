@@ -16,6 +16,7 @@ namespace Patient_Manager.Models
         public string MonthName { get; set; }
         public string Format { get; set; }
         public string Source { get; set; }
+        public XLWorkbook Workbook { get; set; }
 
         public XlsXModel(string creationDate, string monthName, string format)
         {
@@ -23,12 +24,18 @@ namespace Patient_Manager.Models
             MonthName = monthName;
             Format = format;
             Source = MonthName + Format;
+            Workbook = (XLWorkbook)RepairFile();
         }
 
-        public object RepairFile()
+        public Object RepairFile()
         {
-            var workbook = new XLWorkbook(this.Source);
+            XLWorkbook workbook = new XLWorkbook(this.Source);
             return  workbook;
+        }
+
+        public void SaveFile()
+        {
+            Workbook.Save();
         }
     }
 }

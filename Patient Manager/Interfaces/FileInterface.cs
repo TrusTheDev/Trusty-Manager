@@ -15,5 +15,7 @@ namespace Patient_Manager.Interfaces
         string Source { get; set; }
 
         Object RepairFile();
+
+        void SaveFile();
     }
 }

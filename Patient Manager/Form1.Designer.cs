@@ -125,6 +125,7 @@
             this.dataGridView.Size = new System.Drawing.Size(516, 526);
             this.dataGridView.TabIndex = 1;
             this.dataGridView.CurrentCellChanged += new System.EventHandler(this.CurrentCell);
+            this.dataGridView.RowHeightChanged += new System.Windows.Forms.DataGridViewRowEventHandler(this.onRowHeight);
             // 
             // dataGridViewTextBoxColumn1
             // 
