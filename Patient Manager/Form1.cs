@@ -47,16 +47,6 @@ namespace Patient_Manager
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-        
         private void anteriorbtn_Click(object sender, EventArgs e)
         {
             dataGridView = documentToGridView(navigator.getPreviousFile(), dataGridView);
@@ -69,10 +59,9 @@ namespace Patient_Manager
 
         private void CurrentCell(object sender, EventArgs e)
         {
-            if (dataGridView.CurrentCell != null)
-            {
-                addRowbtn.Location = new Point(addRowbtn.Location.X, addRowbtn.Parent.PointToClient(dataGridView.PointToScreen(dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false).Location)).Y);
-            }
+            
+                addRowbtn.Top = getSelectedPoint(dataGridView);
+            
         }
 
         private void addRowbtn_Click(object sender, EventArgs e)

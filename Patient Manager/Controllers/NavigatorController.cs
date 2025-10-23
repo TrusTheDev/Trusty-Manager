@@ -50,11 +50,5 @@ namespace Patient_Manager.Controllers
         {
            return List[Pointer]; 
         }
-
-        public Point getPoint(Button button, DataGridView grid)
-        {
-            return new Point(button.Location.X, button.Parent.PointToClient(grid.PointToScreen(grid.GetCellDisplayRectangle(grid.CurrentCell.ColumnIndex, grid.CurrentCell.RowIndex, false).Location)).Y);
-        }
-
     }
 }

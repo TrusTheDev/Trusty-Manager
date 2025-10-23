@@ -1,12 +1,10 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using Patient_Manager.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
 using Xceed.Words.NET;
-using Patient_Manager.Interfaces;
-using ClosedXML.Excel;
 
 namespace Patient_Manager.Controllers
 {
@@ -82,7 +80,21 @@ namespace Patient_Manager.Controllers
             }
             return gridView;
         }
-
+        static public int getSelectedPoint(DataGridView dataGridView)
+        {
+            if (dataGridView.CurrentCell != null)
+            {
+                Rectangle cellRectangle = dataGridView.GetCellDisplayRectangle(
+                dataGridView.CurrentCell.ColumnIndex,
+                dataGridView.CurrentCell.RowIndex,
+                false);
+                int y = dataGridView.FindForm().PointToClient(
+                    dataGridView.PointToScreen(
+                    new Point(cellRectangle.Location.X, cellRectangle.Location.Y))).Y;
+                return y;
+            }
+            return 0;
+        }
         public DataGridView DocxToGridView()
         {
             throw new NotImplementedException();
