@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Xceed.Words.NET;
-
 namespace Patient_Manager.Models
 {
     internal class DocumentModelList
@@ -52,8 +50,6 @@ namespace Patient_Manager.Models
         {
             get { return DocumentList[index]; }
         }
- 
-        
         public void AddDocument(IFile document)
         {
             DocumentList.Add(document);

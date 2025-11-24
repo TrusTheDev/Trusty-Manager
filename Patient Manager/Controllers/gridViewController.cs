@@ -10,7 +10,6 @@ namespace Patient_Manager.Controllers
 {
     internal class GridViewController 
     {
-
         public static DataGridView documentToGridView(IFile document, DataGridView gridView)
         {
             switch (document.Format) { 
@@ -24,7 +23,6 @@ namespace Patient_Manager.Controllers
                     throw new NotSupportedException($"El formato de archivo {document.Format} no es soportado.");
             }
         }
-
         public static DataGridView xlsxToGridView(DataGridView gridView, XLWorkbook xlsx)
         {
             foreach (var worksheet in xlsx.Worksheets)

@@ -1,13 +1,5 @@
 ﻿using Patient_Manager.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Patient_Manager.Interfaces;
-using System.Drawing;
-using System.Windows.Forms;
-
 namespace Patient_Manager.Controllers
 {
     internal class NavigatorController
