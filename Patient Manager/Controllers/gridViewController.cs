@@ -25,7 +25,8 @@ namespace Patient_Manager.Controllers
         }
         public static DataGridView xlsxToGridView(DataGridView gridView, XLWorkbook xlsx)
         {
-            foreach (var worksheet in xlsx.Worksheets)
+            gridView.Columns.Clear();
+            foreach (var worksheet in  xlsx.Worksheets)
             {
                 bool isFirstRow = true;
                 foreach (var row in worksheet.RowsUsed())
@@ -92,10 +93,6 @@ namespace Patient_Manager.Controllers
             {
                 return btn.Location.Y;
             }
-        }
-        public DataGridView DocxToGridView()
-        {
-            throw new NotImplementedException();
         }
     }
 }
