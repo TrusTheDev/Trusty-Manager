@@ -29,7 +29,7 @@ namespace Patient_Manager.Controllers
         {
             if (Pointer == List.ReturnFirstPosition())
             {
-                Pointer = List.ReturnLastPosition();
+                getLastFile();
             }
             else
             {
@@ -41,6 +41,12 @@ namespace Patient_Manager.Controllers
         public IFile currentFile()
         {
            return List[Pointer]; 
+        }
+
+        public IFile getLastFile()
+        {
+            Pointer = List.ReturnLastPosition();
+            return List[Pointer];
         }
     }
 }

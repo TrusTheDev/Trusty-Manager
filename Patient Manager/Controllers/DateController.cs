@@ -3,6 +3,7 @@ namespace Patient_Manager.Controllers
 {
     internal class DateController
     {
+
         static public String GetDate()
         {
             switch (DateTime.Now.Month)

@@ -11,12 +11,12 @@ namespace Patient_Manager.Models
         public string Format { get; set; }
         public string Source { get; set; }
         public XLWorkbook Workbook { get; set; }
-        public XlsXModel(string creationDate, string monthName, string format)
+        public XlsXModel(string creationDate, string monthName, string format, string source)
         {
             CreationDate = creationDate;
             MonthName = monthName;
             Format = format;
-            Source = MonthName + Format;
+            Source = source;
             Workbook = (XLWorkbook)RepairFile();
         }
         public Object RepairFile()

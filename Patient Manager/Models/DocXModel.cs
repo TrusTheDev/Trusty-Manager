@@ -14,12 +14,12 @@ namespace Patient_Manager.Models
         public string MonthName { get; set; }
         public string Format { get; set; }
         public string Source { get; set; } 
-        public DocXModel(string creationDate, string monthName, string format)
+        public DocXModel(string creationDate, string monthName, string format, string source)
         {
             CreationDate = creationDate;
             MonthName = monthName;
             Format = format;
-            Source = MonthName + Format;
+            Source = source;
             Document = (DocX) RepairFile();
         }
         public Object RepairFile()

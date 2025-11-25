@@ -19,7 +19,7 @@ namespace Patient_Manager
         {
             InitializeComponent();
             label1.Text = GetDate();
-            var document = navigator.currentFile();
+            var document = navigator.getLastFile();
             dataGridView = documentToGridView(document, dataGridView);
             
         }
