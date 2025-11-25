@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 namespace Patient_Manager.Interfaces
 {
     internal interface IFile
@@ -10,6 +11,6 @@ namespace Patient_Manager.Interfaces
         Object RepairFile();
 
 
-        void SaveFile();
+        void SaveFile(DataGridView grid);
     }
 }

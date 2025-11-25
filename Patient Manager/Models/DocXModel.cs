@@ -2,6 +2,8 @@
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
+using System.Windows.Forms;
 using Xceed.Words.NET;
 namespace Patient_Manager.Models
 {
@@ -42,8 +44,41 @@ namespace Patient_Manager.Models
             var doc = Xceed.Words.NET.DocX.Load(rutaTemporal);
             return doc;
         }
-        public void SaveFile()
+
+        public void gridViewToDocX(DataGridView grid)
         {
+            DocX temporaryDocX = DocX.Create("doc_temporary.docx");
+            
+            int filas = grid.Rows.Cast<DataGridViewRow>().Count(r => !r.IsNewRow);
+            int columnas = grid.ColumnCount;
+
+            
+            var tabla = temporaryDocX.AddTable(filas + 1, columnas);
+
+            for (int j = 0; j < grid.Columns.Count; j++)
+            {
+                tabla.Rows[0].Cells[j].Paragraphs[0].Append(grid.Columns[j].HeaderText).Bold();
+            }
+
+            int filaIndex = 1;
+
+            for (int i = 0; i < grid.Rows.Count; i++)
+            {
+                if (grid.Rows[i].IsNewRow) continue; 
+
+                for (int j = 0; j < grid.Columns.Count; j++)
+                {
+                    var valor = grid.Rows[i].Cells[j].Value?.ToString() ?? "";
+                    tabla.Rows[filaIndex].Cells[j].Paragraphs[0].Append(valor);
+                }
+                filaIndex++;
+            }
+            temporaryDocX.InsertTable(tabla);
+            temporaryDocX.SaveAs(this.Source);
+        }
+        public void SaveFile(DataGridView grid)
+        {
+            gridViewToDocX(grid);
             Document.Save();
         }
     }

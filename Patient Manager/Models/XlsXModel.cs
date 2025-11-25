@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using Patient_Manager.Interfaces;
 using System;
+using System.Windows.Forms;
 namespace Patient_Manager.Models
 {
     internal class XlsXModel : IFile
@@ -23,7 +24,7 @@ namespace Patient_Manager.Models
             XLWorkbook workbook = new XLWorkbook(this.Source);
             return  workbook;
         }
-        public void SaveFile()
+        public void SaveFile(DataGridView grid)
         {
             Workbook.Save();
         }
