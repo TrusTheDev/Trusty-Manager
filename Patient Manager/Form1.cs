@@ -1,7 +1,9 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using Patient_Manager.Controllers;
+using Patient_Manager.Features;
 using Patient_Manager.Models;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -14,14 +16,15 @@ namespace Patient_Manager
         static String PatientDocPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\";
         static DocumentModelList documentList = new DocumentModelList(PatientDocPath);
         static NavigatorController navigator = new NavigatorController(documentList);
-        
+
         public Form1()
         {
+            this.KeyPreview = true;  
             InitializeComponent();
             label1.Text = GetDate();
             var document = navigator.getLastFile();
             dataGridView = documentToGridView(document, dataGridView);
-            
+
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -35,7 +38,7 @@ namespace Patient_Manager
         private void anteriorbtn_Click(object sender, EventArgs e)
         {
             navigator.currentFile().SaveFile(dataGridView);
-            dataGridView = documentToGridView(navigator.getPreviousFile(), dataGridView);    
+            dataGridView = documentToGridView(navigator.getPreviousFile(), dataGridView);
         }
         private void siguientebtn_Click(object sender, EventArgs e)
         {
@@ -58,5 +61,54 @@ namespace Patient_Manager
         {
             dataGridView.Rows.RemoveAt(dataGridView.CurrentCell.RowIndex);
         }
+        private object originalValue;
+        Stack<UndoAction> undoStack = new Stack<UndoAction>();
+        private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            originalValue = dataGridView[e.ColumnIndex, e.RowIndex].Value;
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            var newValue = dataGridView[e.ColumnIndex, e.RowIndex].Value;
+
+            // Si no cambió, no hacemos nada
+            if (Equals(originalValue, newValue))
+                return;
+
+            undoStack.Push(new UndoAction(
+                e.RowIndex,
+                e.ColumnIndex,
+                originalValue,
+                newValue
+            ));
+        }
+
+        private void UndoLast()
+        {
+            if (undoStack.Count == 0) return;
+
+            var action = undoStack.Pop();
+
+            // Revertimos
+            dataGridView[action.ColumnIndex, action.RowIndex].Value = action.OldValue;
+
+            // Opcional: Enfocar la celda para mostrar claramente el cambio
+            dataGridView.CurrentCell = dataGridView[action.ColumnIndex, action.RowIndex];
+        }
+
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.Z)
+            {
+                UndoLast();
+            }
+        }
+
+
+
+
+
     }
 }
