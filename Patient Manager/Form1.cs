@@ -54,9 +54,9 @@ namespace Patient_Manager
         {
             addRowbtn.Top = getSelectedmiddlePoint(dataGridView, addRowbtn);
         }
-        private void button5_Click(object sender, EventArgs e)
+        private void removerBtn(object sender, EventArgs e)
         {
-
+            dataGridView.Rows.RemoveAt(dataGridView.CurrentCell.RowIndex);
         }
     }
 }
