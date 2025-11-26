@@ -23,11 +23,11 @@ namespace Patient_Manager.Models
                 switch (Path.GetExtension(file).ToLower())
                 {
                     case ".docx":
-                        var docxModel = new DocXModel(Convert.ToString(File.GetCreationTime(path).Year),Path.GetFileNameWithoutExtension(file), ".docx", Path.Combine(path, Path.GetFileName(file)));
+                        var docxModel = new DocXModel(Convert.ToString(File.GetCreationTime(path).Year),Path.GetFileNameWithoutExtension(file), ".docx", Path.Combine(path, Path.GetFileName(file)), Path.GetFileName(file));
                         AddDocument(docxModel);
                         break;
                     case ".xlsx":
-                        var xlsxModel = new XlsXModel(Convert.ToString(File.GetCreationTime(path).Year), Path.GetFileNameWithoutExtension(file), ".xlsx", Path.Combine(path, Path.GetFileName(file)));
+                        var xlsxModel = new XlsXModel(Convert.ToString(File.GetCreationTime(path).Year), Path.GetFileNameWithoutExtension(file), ".xlsx", Path.Combine(path, Path.GetFileName(file)), Path.GetFileName(file));
                         AddDocument(xlsxModel);
                         break;
 

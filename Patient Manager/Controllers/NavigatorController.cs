@@ -38,7 +38,7 @@ namespace Patient_Manager.Controllers
             return List[Pointer];
         }
 
-        public IFile currentFile()
+        public IFile getcurrentFile()
         {
            return List[Pointer]; 
         }

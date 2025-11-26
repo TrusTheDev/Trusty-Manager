@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using Xceed.Document.NET;
 using static Patient_Manager.Controllers.DateController;
 using static Patient_Manager.Controllers.GridViewController;
 namespace Patient_Manager
@@ -21,8 +22,8 @@ namespace Patient_Manager
         {
             this.KeyPreview = true;  
             InitializeComponent();
-            label1.Text = GetDate();
             var document = navigator.getLastFile();
+            label1.Text = document.FileName;
             dataGridView = documentToGridView(document, dataGridView);
 
         }
@@ -37,13 +38,15 @@ namespace Patient_Manager
         }
         private void anteriorbtn_Click(object sender, EventArgs e)
         {
-            navigator.currentFile().SaveFile(dataGridView);
+            navigator.getcurrentFile().SaveFile(dataGridView);
             dataGridView = documentToGridView(navigator.getPreviousFile(), dataGridView);
+            label1.Text = navigator.getcurrentFile().FileName;
         }
         private void siguientebtn_Click(object sender, EventArgs e)
         {
-            navigator.currentFile().SaveFile(dataGridView);
+            navigator.getcurrentFile().SaveFile(dataGridView);
             dataGridView = documentToGridView(navigator.getNextFile(), dataGridView);
+            label1.Text = navigator.getcurrentFile().FileName;
         }
         private void CurrentCell(object sender, EventArgs e)
         {
@@ -61,18 +64,16 @@ namespace Patient_Manager
         {
             dataGridView.Rows.RemoveAt(dataGridView.CurrentCell.RowIndex);
         }
+
         private object originalValue;
         Stack<UndoAction> undoStack = new Stack<UndoAction>();
         private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             originalValue = dataGridView[e.ColumnIndex, e.RowIndex].Value;
         }
-
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             var newValue = dataGridView[e.ColumnIndex, e.RowIndex].Value;
-
-            // Si no cambió, no hacemos nada
             if (Equals(originalValue, newValue))
                 return;
 
@@ -83,7 +84,6 @@ namespace Patient_Manager
                 newValue
             ));
         }
-
         private void UndoLast()
         {
             if (undoStack.Count == 0) return;
@@ -96,7 +96,6 @@ namespace Patient_Manager
             // Opcional: Enfocar la celda para mostrar claramente el cambio
             dataGridView.CurrentCell = dataGridView[action.ColumnIndex, action.RowIndex];
         }
-
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
