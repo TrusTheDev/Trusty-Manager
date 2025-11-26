@@ -4,6 +4,7 @@ using Patient_Manager.Features;
 using Patient_Manager.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -105,9 +106,15 @@ namespace Patient_Manager
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
 
+        }
 
-
-
+        private void btnPlanilla(object sender, EventArgs e)
+        {
+            string filePath = Path.Combine(PatientDocPath,navigator.getcurrentFile().FileName);
+            Process.Start("explorer.exe", $"/select,\"{filePath}\"");
+        }
     }
 }
