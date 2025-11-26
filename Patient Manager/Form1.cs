@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using Patient_Manager.Controllers;
 using Patient_Manager.Features;
+using Patient_Manager.Forms;
 using Patient_Manager.Models;
 using System;
 using System.Collections.Generic;
@@ -31,11 +32,6 @@ namespace Patient_Manager
         private void Form1_Load(object sender, EventArgs e)
         {
             addRowbtn.Location = new Point(addRowbtn.Location.X, addRowbtn.Parent.PointToClient(dataGridView.PointToScreen(dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false).Location)).Y);
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
         }
         private void anteriorbtn_Click(object sender, EventArgs e)
         {
@@ -106,15 +102,16 @@ namespace Patient_Manager
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnPlanilla(object sender, EventArgs e)
         {
             string filePath = Path.Combine(PatientDocPath,navigator.getcurrentFile().FileName);
             Process.Start("explorer.exe", $"/select,\"{filePath}\"");
+        }
+
+        private void btnAgregarArchivo(object sender, EventArgs e)
+        {
+            AddDocumentForm form = new AddDocumentForm();
+            form.Show();
         }
     }
 }

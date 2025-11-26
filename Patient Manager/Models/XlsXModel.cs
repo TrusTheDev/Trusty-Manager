@@ -11,9 +11,10 @@ namespace Patient_Manager.Models
         public string Format { get; set; }
         public string Source { get; set; }
         public XLWorkbook Workbook { get; set; }
-        public string FileName { get; set; }
+        public string FileName { get; set;}
+        public string FilePath { get; }
 
-        public XlsXModel(string creationDate, string monthName, string format, string source, string fileName)
+        public XlsXModel(string creationDate, string monthName, string format, string source, string fileName, string filePath)
         {
             CreationDate = creationDate;
             MonthName = monthName;
@@ -21,6 +22,7 @@ namespace Patient_Manager.Models
             Source = source;
             Workbook = (XLWorkbook)RepairFile();
             FileName = fileName;
+            FilePath = filePath;
         }
         public Object RepairFile()
         {
@@ -30,6 +32,11 @@ namespace Patient_Manager.Models
         public void SaveFile(DataGridView grid)
         {
             Workbook.Save();
+        }
+
+        public void createFile(string fileName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

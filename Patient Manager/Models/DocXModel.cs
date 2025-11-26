@@ -15,8 +15,9 @@ namespace Patient_Manager.Models
         public string Format { get; set; }
         public string Source { get; set; }
         public string FileName { get; set; }
+        public string FilePath { get; }
 
-        public DocXModel(string creationDate, string monthName, string format, string source, string fileName)
+        public DocXModel(string creationDate, string monthName, string format, string source, string fileName, string filePath)
         {
             CreationDate = creationDate;
             MonthName = monthName;
@@ -24,6 +25,7 @@ namespace Patient_Manager.Models
             Source = source;
             Document = (DocX) RepairFile();
             FileName = fileName;
+            FilePath = filePath;
         }
         public Object RepairFile()
         {
