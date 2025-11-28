@@ -94,5 +94,35 @@ namespace Patient_Manager.Controllers
                 return btn.Location.Y;
             }
         }
+
+        public static DataGridView addColumn(DataGridView gridView, string columnName)
+        {
+            if (gridView == null)
+            {
+                throw new ArgumentNullException(nameof(gridView));
+            }
+
+            if (string.IsNullOrWhiteSpace(columnName))
+            {
+                return gridView;
+            }
+
+            var names = columnName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var raw in names)
+            {
+                var name = raw.Trim();
+                if (string.IsNullOrEmpty(name))
+                {
+                    continue;
+                }
+
+                // Avoid adding duplicate columns (checks by column Name)
+                if (!gridView.Columns.Contains(name))
+                {
+                    gridView.Columns.Add(name, name);
+                }
+            }
+            return gridView;
+        }
     }
 }

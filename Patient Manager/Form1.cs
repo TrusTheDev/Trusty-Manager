@@ -51,8 +51,31 @@ namespace Patient_Manager
         }
         private void addRowbtn_Click(object sender, EventArgs e)
         {
-            if (dataGridView.CurrentCell == null) dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
-            else dataGridView.Rows.Insert(dataGridView.CurrentCell.RowIndex + 1);
+            if (dataGridView.Columns.Count == 0)
+            {
+                MessageBox.Show("ATENCION: Columna vacía, agrega una.");
+                return;
+            }
+
+            if (dataGridView.CurrentCell == null)
+            {
+                // No current cell: append before new row (if present) or at end
+                int index = dataGridView.Rows.Count - (dataGridView.AllowUserToAddRows ? 1 : 0);
+                dataGridView.Rows.Insert(index);
+                return;
+            }
+
+            var owningRow = dataGridView.CurrentCell.OwningRow;
+            if (owningRow.IsNewRow)
+            {
+                // Insert before the new row (can't insert after it)
+                int index = dataGridView.Rows.Count - 1;
+                dataGridView.Rows.Insert(index);
+            }
+            else
+            {
+                dataGridView.Rows.Insert(owningRow.Index + 1);
+            }
         }
         private void onRowHeight(object sender, DataGridViewRowEventArgs e)
         {
@@ -126,7 +149,24 @@ namespace Patient_Manager
 
         private void btnAgregarCol_Click(object sender, EventArgs e)
         {
+            using (var form = new AddColumnForm())
+            {
+                var result = form.ShowDialog(this);
+                if (result == DialogResult.OK)
+                {
+                    dataGridView = addColumn(dataGridView, form.columnName);
+                }
+            }
+        }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.Columns.Count == 0)
+            {
+                MessageBox.Show("ATENCION: Columna vacía, no se puede eliminar.");
+                return;
+            }
+            else dataGridView.Columns.RemoveAt(dataGridView.CurrentCell.ColumnIndex);
         }
     }
 }
