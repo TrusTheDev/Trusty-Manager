@@ -3,9 +3,9 @@ using Patient_Manager.Models;
 using System;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Xceed.Words.NET;
+
 namespace Patient_Manager.Controllers
 {
     internal class FileController
@@ -48,6 +48,24 @@ namespace Patient_Manager.Controllers
             string combinedFilePath = Path.Combine(FilePath, fileName);
             document.SaveAs(combinedFilePath);
             documentModelList.AddDocument(new DocXModel(Convert.ToString(File.GetCreationTime(combinedFilePath).Year), Path.GetFileNameWithoutExtension(combinedFilePath), ".docx", combinedFilePath, Path.GetFileName(combinedFilePath), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\"));
+        }
+
+        public static void deleteFile(string FilePath)
+        {
+            if (File.Exists(FilePath))
+            {
+                bool ok = RecycleBin.Send(FilePath);
+
+                if (!ok)
+                {
+                    MessageBox.Show("No se pudo enviar el archivo a la Papelera.");
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("El archivo no existe.");
+            }
         }
     }
 }

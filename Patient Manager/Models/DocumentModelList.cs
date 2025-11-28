@@ -1,14 +1,15 @@
-﻿using Patient_Manager.Interfaces;
+﻿using Patient_Manager.Controllers;
+using Patient_Manager.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using static Patient_Manager.Controllers.FileController;
 namespace Patient_Manager.Models
 {
     public class DocumentModelList
     {
         public List<IFile> DocumentList { get; set; }
-
         public DocumentModelList()
         {
             DocumentList = new List<IFile>();
@@ -115,6 +116,10 @@ namespace Patient_Manager.Models
         {
             DocumentList.Add(document);
         }
-
+        public void RemoveFile(IFile document)
+        {
+            DocumentList.Remove(document);
+            deleteFile(document.Source);
+        }
     }
 }

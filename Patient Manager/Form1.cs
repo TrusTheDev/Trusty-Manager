@@ -168,5 +168,17 @@ namespace Patient_Manager
             }
             else dataGridView.Columns.RemoveAt(dataGridView.CurrentCell.ColumnIndex);
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            DialogResult = MessageBox.Show("¿Estás seguro de que deseas eliminar el archivo?","Si", MessageBoxButtons.YesNo);
+            if (DialogResult == DialogResult.Yes)
+            {
+                documentList.RemoveFile(navigator.getcurrentFile());
+                navigator.assignFile(documentList);
+                dataGridView = documentToGridView(navigator.getcurrentFile(), dataGridView);
+                label1.Text = navigator.getcurrentFile().FileName;
+            }
+        }
     }
 }
