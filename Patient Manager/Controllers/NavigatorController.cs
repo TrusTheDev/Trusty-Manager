@@ -1,12 +1,13 @@
 ﻿using Patient_Manager.Models;
 using Patient_Manager.Interfaces;
+using DocumentFormat.OpenXml.Office2021.DocumentTasks;
 namespace Patient_Manager.Controllers
 {
     internal class NavigatorController
     {
         int Pointer {get;set;}
         DocumentModelList List { get;set;}
-        public NavigatorController(DocumentModelList list)
+        public void assignFile ( DocumentModelList list)
         {
             List = list;
             Pointer = list.ReturnLastPosition();

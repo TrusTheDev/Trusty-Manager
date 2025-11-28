@@ -1,4 +1,6 @@
 ﻿using Patient_Manager.Controllers;
+using Patient_Manager.Interfaces;
+using Patient_Manager.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,8 +14,10 @@ using System.Windows.Forms;
 namespace Patient_Manager.Forms
 {
     public partial class AddDocumentForm : Form
+
     {
         FileController fileController = new FileController();
+        public DocumentModelList FileModelList { get; set; }
         public AddDocumentForm()
         {
             InitializeComponent();
@@ -29,6 +33,8 @@ namespace Patient_Manager.Forms
             if (textBox1.Text != "")
             {
                 fileController.createFile(textBox1.Text);
+                this.FileModelList = fileController.documentModelList;
+                Close();
             }
             else
             {

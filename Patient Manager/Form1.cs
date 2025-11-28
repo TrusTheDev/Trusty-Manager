@@ -17,11 +17,13 @@ namespace Patient_Manager
     public partial class Form1 : Form
     {
         static String PatientDocPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\";
-        static DocumentModelList documentList = new DocumentModelList(PatientDocPath);
-        static NavigatorController navigator = new NavigatorController(documentList);
+        static DocumentModelList documentList = new DocumentModelList();
+        static NavigatorController navigator = new NavigatorController();
 
         public Form1()
         {
+            documentList.AddDocumentsFromFile(PatientDocPath);
+            navigator.assignFile(documentList);
             this.KeyPreview = true;  
             InitializeComponent();
             var document = navigator.getLastFile();
@@ -31,6 +33,7 @@ namespace Patient_Manager
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             addRowbtn.Location = new Point(addRowbtn.Location.X, addRowbtn.Parent.PointToClient(dataGridView.PointToScreen(dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false).Location)).Y);
         }
         private void anteriorbtn_Click(object sender, EventArgs e)
@@ -112,6 +115,11 @@ namespace Patient_Manager
         {
             AddDocumentForm form = new AddDocumentForm();
             form.Show();
+            if (form.DialogResult == DialogResult.OK)
+            {
+                documentList.combineLists(form.);
+                navigator.assignFile(documentList);
+            }
         }
     }
 }

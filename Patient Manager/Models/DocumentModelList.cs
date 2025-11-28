@@ -9,10 +9,9 @@ namespace Patient_Manager.Models
     {
         public List<IFile> DocumentList { get; set; }
 
-        public DocumentModelList(String path)
+        public DocumentModelList()
         {
             DocumentList = new List<IFile>();
-            AddDocumentsFromFile(path);
         }
 
         public void AddDocumentsFromFile(String path)
@@ -23,17 +22,24 @@ namespace Patient_Manager.Models
                 switch (Path.GetExtension(file).ToLower())
                 {
                     case ".docx":
-                        var docxModel = new DocXModel(Convert.ToString(File.GetCreationTime(path).Year),Path.GetFileNameWithoutExtension(file), ".docx", Path.Combine(path, Path.GetFileName(file)), Path.GetFileName(file), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\");
-                        AddDocument(docxModel);
+                        AddDocument(new DocXModel(Convert.ToString(File.GetCreationTime(path).Year), Path.GetFileNameWithoutExtension(file), ".docx", Path.Combine(path, Path.GetFileName(file)), Path.GetFileName(file), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\"));
                         break;
                     case ".xlsx":
-                        var xlsxModel = new XlsXModel(Convert.ToString(File.GetCreationTime(path).Year), Path.GetFileNameWithoutExtension(file), ".xlsx", Path.Combine(path, Path.GetFileName(file)), Path.GetFileName(file), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\");
-                        AddDocument(xlsxModel);
+                        AddDocument(new XlsXModel(Convert.ToString(File.GetCreationTime(path).Year), Path.GetFileNameWithoutExtension(file), ".xlsx", Path.Combine(path, Path.GetFileName(file)), Path.GetFileName(file), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\"));
                         break;
 
                     default:
                         throw new NotSupportedException($"El formato de archivo {Path.GetExtension(file)} no es soportado.");   
                 }
+            }
+            sortByDate();
+        }
+
+        public void combineLists(DocumentModelList otherList)
+        {
+            foreach (var document in otherList.DocumentList)
+            {
+                DocumentList.Add(document);
             }
             sortByDate();
         }
