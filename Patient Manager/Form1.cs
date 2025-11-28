@@ -9,8 +9,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using Xceed.Document.NET;
-using static Patient_Manager.Controllers.DateController;
 using static Patient_Manager.Controllers.GridViewController;
 namespace Patient_Manager
 {
@@ -33,7 +31,6 @@ namespace Patient_Manager
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            
             addRowbtn.Location = new Point(addRowbtn.Location.X, addRowbtn.Parent.PointToClient(dataGridView.PointToScreen(dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false).Location)).Y);
         }
         private void anteriorbtn_Click(object sender, EventArgs e)
@@ -54,7 +51,8 @@ namespace Patient_Manager
         }
         private void addRowbtn_Click(object sender, EventArgs e)
         {
-            dataGridView.Rows.Insert(dataGridView.CurrentCell.RowIndex + 1);
+            if (dataGridView.CurrentCell == null) dataGridView.Columns.Add(new DataGridViewTextBoxColumn());
+            else dataGridView.Rows.Insert(dataGridView.CurrentCell.RowIndex + 1);
         }
         private void onRowHeight(object sender, DataGridViewRowEventArgs e)
         {
@@ -113,13 +111,22 @@ namespace Patient_Manager
 
         private void btnAgregarArchivo(object sender, EventArgs e)
         {
-            AddDocumentForm form = new AddDocumentForm();
-            form.Show();
-            if (form.DialogResult == DialogResult.OK)
+            using (var form = new AddDocumentForm())
             {
-                documentList.combineLists(form.);
-                navigator.assignFile(documentList);
+                var result = form.ShowDialog(this);
+                if (result == DialogResult.OK)
+                {
+                    documentList.combineLists(form.FileModelList);
+                    navigator.assignFile(documentList);
+                    dataGridView = documentToGridView(navigator.getLastFile(), dataGridView);
+                    label1.Text = navigator.getcurrentFile().FileName;
+                }
             }
+        }
+
+        private void btnAgregarCol_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

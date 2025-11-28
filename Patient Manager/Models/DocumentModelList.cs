@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 namespace Patient_Manager.Models
 {
-    internal class DocumentModelList
+    public class DocumentModelList
     {
         public List<IFile> DocumentList { get; set; }
 
@@ -32,7 +32,7 @@ namespace Patient_Manager.Models
                         throw new NotSupportedException($"El formato de archivo {Path.GetExtension(file)} no es soportado.");   
                 }
             }
-            sortByDate();
+            //sortByDate();
         }
 
         public void combineLists(DocumentModelList otherList)
@@ -41,60 +41,64 @@ namespace Patient_Manager.Models
             {
                 DocumentList.Add(document);
             }
-            sortByDate();
+            //sortByDate();
         }
+        /*
         public void sortByDate()
         {
             int[] values = getMonthValues();
             DocumentList.Sort((x, y) => values[DocumentList.IndexOf(x)].CompareTo(values[DocumentList.IndexOf(y)]));
         }
-        public int[] getMonthValues()
-        {
-            int[] values = new int[DocumentList.Count];
-            foreach (var document in DocumentList)
-            {
-                switch (document.MonthName.ToLower())
+        
+         *          public int[] getMonthValues()
                 {
-                    case "enero":
-                        values[DocumentList.IndexOf(document)] = 1;
-                        break;
-                    case "febrero":
-                        values[DocumentList.IndexOf(document)] = 2;
-                        break;
-                    case "marzo":
-                        values[DocumentList.IndexOf(document)] = 3;
-                        break;
-                    case "abril":
-                        values[DocumentList.IndexOf(document)] = 4;
-                        break;
-                    case "mayo":
-                        values[DocumentList.IndexOf(document)] = 5;
-                        break;
-                    case "junio":
-                        values[DocumentList.IndexOf(document)] = 6;
-                        break;
-                    case "julio":
-                        values[DocumentList.IndexOf(document)] = 7;
-                        break;
-                    case "agosto":
-                        values[DocumentList.IndexOf(document)] = 8;
-                        break;
-                    case "septiembre":
-                        values[DocumentList.IndexOf(document)] = 9;
-                        break;
-                    case "octubre":
-                        values[DocumentList.IndexOf(document)] = 10;
-                        break;
-                    case "noviembre":
-                        values[DocumentList.IndexOf(document)] = 11;
-                        break;
-                    case "December":
-                        values[DocumentList.IndexOf(document)] = 12;
-                        break;
+                    int[] values = new int[DocumentList.Count];
+                    foreach (var document in DocumentList)
+                    {
+                        switch (document.MonthName.ToLower())
+                        {
+                            case "enero":
+                                values[DocumentList.IndexOf(document)] = 1;
+                                break;
+                            case "febrero":
+                                values[DocumentList.IndexOf(document)] = 2;
+                                break;
+                            case "marzo":
+                                values[DocumentList.IndexOf(document)] = 3;
+                                break;
+                            case "abril":
+                                values[DocumentList.IndexOf(document)] = 4;
+                                break;
+                            case "mayo":
+                                values[DocumentList.IndexOf(document)] = 5;
+                                break;
+                            case "junio":
+                                values[DocumentList.IndexOf(document)] = 6;
+                                break;
+                            case "julio":
+                                values[DocumentList.IndexOf(document)] = 7;
+                                break;
+                            case "agosto":
+                                values[DocumentList.IndexOf(document)] = 8;
+                                break;
+                            case "septiembre":
+                                values[DocumentList.IndexOf(document)] = 9;
+                                break;
+                            case "octubre":
+                                values[DocumentList.IndexOf(document)] = 10;
+                                break;
+                            case "noviembre":
+                                values[DocumentList.IndexOf(document)] = 11;
+                                break;
+                            case "December":
+                                values[DocumentList.IndexOf(document)] = 12;
+                                break;
+                        }
+                    }
+                    return values;
                 }
-            }
-            return values;
-        }
+         * 
+         */
         public int ReturnLastPosition()
         {
             return DocumentList.LastIndexOf(DocumentList.Last());

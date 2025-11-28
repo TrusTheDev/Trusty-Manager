@@ -34,6 +34,7 @@ namespace Patient_Manager.Forms
             {
                 fileController.createFile(textBox1.Text);
                 this.FileModelList = fileController.documentModelList;
+                DialogResult = DialogResult.OK;
                 Close();
             }
             else

@@ -41,6 +41,7 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addRowbtn = new System.Windows.Forms.Button();
+            this.btnAgregarCol = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -166,9 +167,21 @@
             this.addRowbtn.UseVisualStyleBackColor = true;
             this.addRowbtn.Click += new System.EventHandler(this.addRowbtn_Click);
             // 
+            // btnAgregarCol
+            // 
+            this.btnAgregarCol.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnAgregarCol.Location = new System.Drawing.Point(567, 37);
+            this.btnAgregarCol.Name = "btnAgregarCol";
+            this.btnAgregarCol.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregarCol.TabIndex = 8;
+            this.btnAgregarCol.Text = "+Columna";
+            this.btnAgregarCol.UseVisualStyleBackColor = true;
+            this.btnAgregarCol.Click += new System.EventHandler(this.btnAgregarCol_Click);
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(654, 604);
+            this.Controls.Add(this.btnAgregarCol);
             this.Controls.Add(this.addRowbtn);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.label1);
@@ -206,6 +219,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.Button addRowbtn;
+        private System.Windows.Forms.Button btnAgregarCol;
     }
 }
 

@@ -3,8 +3,9 @@ using Patient_Manager.Models;
 using System;
 using System.IO;
 using System.Linq;
-using Xceed.Words.NET;
 using System.Threading;
+using System.Windows.Forms;
+using Xceed.Words.NET;
 namespace Patient_Manager.Controllers
 {
     internal class FileController
@@ -27,7 +28,8 @@ namespace Patient_Manager.Controllers
                     createXlsx(fileName);
                     break;
                 default:
-                    throw new NotSupportedException("File type not supported.");
+                    MessageBox.Show("El archivo no es soportado");
+                    break;
             }
         }
 

@@ -52,34 +52,37 @@ namespace Patient_Manager.Models
 
         public void gridViewToDocX(DataGridView grid)
         {
-            DocX temporaryDocX = DocX.Create("doc_temporary.docx");
-            
-            int filas = grid.Rows.Cast<DataGridViewRow>().Count(r => !r.IsNewRow);
-            int columnas = grid.ColumnCount;
-
-            
-            var tabla = temporaryDocX.AddTable(filas + 1, columnas);
-
-            for (int j = 0; j < grid.Columns.Count; j++)
+            if (grid.Rows.Count != 0)
             {
-                tabla.Rows[0].Cells[j].Paragraphs[0].Append(grid.Columns[j].HeaderText).Bold();
-            }
+                DocX temporaryDocX = DocX.Create("doc_temporary.docx");
 
-            int filaIndex = 1;
+                int filas = grid.Rows.Cast<DataGridViewRow>().Count(r => !r.IsNewRow);
+                int columnas = grid.ColumnCount;
 
-            for (int i = 0; i < grid.Rows.Count; i++)
-            {
-                if (grid.Rows[i].IsNewRow) continue; 
+
+                var tabla = temporaryDocX.AddTable(filas + 1, columnas);
 
                 for (int j = 0; j < grid.Columns.Count; j++)
                 {
-                    var valor = grid.Rows[i].Cells[j].Value?.ToString() ?? "";
-                    tabla.Rows[filaIndex].Cells[j].Paragraphs[0].Append(valor);
+                    tabla.Rows[0].Cells[j].Paragraphs[0].Append(grid.Columns[j].HeaderText).Bold();
                 }
-                filaIndex++;
+
+                int filaIndex = 1;
+
+                for (int i = 0; i < grid.Rows.Count; i++)
+                {
+                    if (grid.Rows[i].IsNewRow) continue;
+
+                    for (int j = 0; j < grid.Columns.Count; j++)
+                    {
+                        var valor = grid.Rows[i].Cells[j].Value?.ToString() ?? "";
+                        tabla.Rows[filaIndex].Cells[j].Paragraphs[0].Append(valor);
+                    }
+                    filaIndex++;
+                }
+                temporaryDocX.InsertTable(tabla);
+                temporaryDocX.SaveAs(this.Source);
             }
-            temporaryDocX.InsertTable(tabla);
-            temporaryDocX.SaveAs(this.Source);
         }
         public void SaveFile(DataGridView grid)
         {

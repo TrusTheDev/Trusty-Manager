@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 namespace Patient_Manager.Interfaces
 {
-    internal interface IFile
+    public interface IFile
     {
         string FilePath { get; }
         string CreationDate { get; set; }
