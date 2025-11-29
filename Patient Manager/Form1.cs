@@ -33,13 +33,13 @@ namespace Patient_Manager
         {
             addRowbtn.Location = new Point(addRowbtn.Location.X, addRowbtn.Parent.PointToClient(dataGridView.PointToScreen(dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false).Location)).Y);
         }
-        private void anteriorbtn_Click(object sender, EventArgs e)
+        private void btnFormer_Click(object sender, EventArgs e)
         {
             navigator.getcurrentFile().SaveFile(dataGridView);
             dataGridView = documentToGridView(navigator.getPreviousFile(), dataGridView);
             label1.Text = navigator.getcurrentFile().FileName;
         }
-        private void siguientebtn_Click(object sender, EventArgs e)
+        private void btnNextFile_Click(object sender, EventArgs e)
         {
             navigator.getcurrentFile().SaveFile(dataGridView);
             dataGridView = documentToGridView(navigator.getNextFile(), dataGridView);
@@ -49,7 +49,7 @@ namespace Patient_Manager
         {
             addRowbtn.Top = getSelectedmiddlePoint(dataGridView, addRowbtn);
         }
-        private void addRowbtn_Click(object sender, EventArgs e)
+        private void BtnAddRow_Click(object sender, EventArgs e)
         {
             if (dataGridView.Columns.Count == 0)
             {
@@ -81,7 +81,7 @@ namespace Patient_Manager
         {
             addRowbtn.Top = getSelectedmiddlePoint(dataGridView, addRowbtn);
         }
-        private void removerBtn(object sender, EventArgs e)
+        private void btnRemoveCell(object sender, EventArgs e)
         {
             dataGridView.Rows.RemoveAt(dataGridView.CurrentCell.RowIndex);
         }
@@ -118,7 +118,7 @@ namespace Patient_Manager
             dataGridView.CurrentCell = dataGridView[action.ColumnIndex, action.RowIndex];
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void KeyBindCTRLZ(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.Z)
             {
@@ -126,13 +126,13 @@ namespace Patient_Manager
             }
         }
 
-        private void btnPlanilla(object sender, EventArgs e)
+        private void btnOpenFileLocation_Click(object sender, EventArgs e)
         {
             string filePath = Path.Combine(PatientDocPath,navigator.getcurrentFile().FileName);
             Process.Start("explorer.exe", $"/select,\"{filePath}\"");
         }
 
-        private void btnAgregarArchivo(object sender, EventArgs e)
+        private void btnAddFile_Click(object sender, EventArgs e)
         {
             using (var form = new AddDocumentForm())
             {
@@ -147,7 +147,7 @@ namespace Patient_Manager
             }
         }
 
-        private void btnAgregarCol_Click(object sender, EventArgs e)
+        private void btnAddCol_Click(object sender, EventArgs e)
         {
             using (var form = new AddColumnForm())
             {
@@ -159,7 +159,7 @@ namespace Patient_Manager
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void btnDeleteCol_Click(object sender, EventArgs e)
         {
             if (dataGridView.Columns.Count == 0)
             {
@@ -169,7 +169,7 @@ namespace Patient_Manager
             else dataGridView.Columns.RemoveAt(dataGridView.CurrentCell.ColumnIndex);
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void btnDeleteFile_Click(object sender, EventArgs e)
         {
             DialogResult = MessageBox.Show("¿Estás seguro de que deseas eliminar el archivo?","Si", MessageBoxButtons.YesNo);
             if (DialogResult == DialogResult.Yes)

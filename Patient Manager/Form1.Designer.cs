@@ -56,7 +56,7 @@
             this.button5.TabIndex = 4;
             this.button5.Text = "Remover";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.removerBtn);
+            this.button5.Click += new System.EventHandler(this.btnRemoveCell);
             // 
             // button4
             // 
@@ -67,7 +67,7 @@
             this.button4.TabIndex = 3;
             this.button4.Text = "Agregar ";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.btnAgregarArchivo);
+            this.button4.Click += new System.EventHandler(this.btnAddFile_Click);
             // 
             // button3
             // 
@@ -79,7 +79,7 @@
             this.button3.TabIndex = 0;
             this.button3.Text = "Planilla";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.btnPlanilla);
+            this.button3.Click += new System.EventHandler(this.btnOpenFileLocation_Click);
             // 
             // button2
             // 
@@ -90,7 +90,7 @@
             this.button2.TabIndex = 2;
             this.button2.Text = "Anterior";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.anteriorbtn_Click);
+            this.button2.Click += new System.EventHandler(this.btnFormer_Click);
             // 
             // button1
             // 
@@ -101,7 +101,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Siguiente";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.siguientebtn_Click);
+            this.button1.Click += new System.EventHandler(this.btnNextFile_Click);
             // 
             // label1
             // 
@@ -167,7 +167,7 @@
             this.addRowbtn.TabIndex = 7;
             this.addRowbtn.Text = "+";
             this.addRowbtn.UseVisualStyleBackColor = true;
-            this.addRowbtn.Click += new System.EventHandler(this.addRowbtn_Click);
+            this.addRowbtn.Click += new System.EventHandler(this.BtnAddRow_Click);
             // 
             // btnAgregarCol
             // 
@@ -178,7 +178,7 @@
             this.btnAgregarCol.TabIndex = 8;
             this.btnAgregarCol.Text = "+ Columna";
             this.btnAgregarCol.UseVisualStyleBackColor = true;
-            this.btnAgregarCol.Click += new System.EventHandler(this.btnAgregarCol_Click);
+            this.btnAgregarCol.Click += new System.EventHandler(this.btnAddCol_Click);
             // 
             // button6
             // 
@@ -189,7 +189,7 @@
             this.button6.TabIndex = 9;
             this.button6.Text = "- Columna";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.button6.Click += new System.EventHandler(this.btnDeleteCol_Click);
             // 
             // button7
             // 
@@ -200,7 +200,7 @@
             this.button7.TabIndex = 10;
             this.button7.Text = "Borrar Archivo";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button7.Click += new System.EventHandler(this.btnDeleteFile_Click);
             // 
             // Form1
             // 
@@ -217,7 +217,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyBindCTRLZ);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
