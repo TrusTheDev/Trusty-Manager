@@ -64,7 +64,14 @@ namespace Patient_Manager.Models
 
                 for (int j = 0; j < grid.Columns.Count; j++)
                 {
+                    if (grid.Columns[j].Visible)
+                    {
                         tabla.Rows[0].Cells[j].Paragraphs[0].Append(grid.Columns[j].HeaderText).Bold();
+                    }
+                    else
+                    {
+                        grid.Columns.RemoveAt(j);
+                    }
                 }
 
                 int filaIndex = 1;

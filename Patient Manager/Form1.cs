@@ -111,6 +111,7 @@ namespace Patient_Manager
                     }
                 }
             });
+
         }
 
         private object originalValue;
@@ -227,7 +228,6 @@ namespace Patient_Manager
             int currentRow = dataGridView.CurrentCell?.RowIndex?? 0;
             originalValue = targetCol.Visible;
             targetCol.Visible = false;
-            Console.WriteLine("valor de current col: " + currentCol);
             undoStack.Push(new UndoAction
                 {
                     Changes = { new CellChange {
