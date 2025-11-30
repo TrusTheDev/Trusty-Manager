@@ -78,7 +78,7 @@ namespace Patient_Manager.Models
 
                 for (int i = 0; i < grid.Rows.Count; i++)
                 {
-                    if (grid.Rows[i].IsNewRow) continue;
+                    if (grid.Rows[i].IsNewRow || !grid.Rows[i].Visible) continue;
 
                     for (int j = 0; j < grid.Columns.Count; j++)
                     {      

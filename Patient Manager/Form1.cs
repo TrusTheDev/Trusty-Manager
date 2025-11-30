@@ -19,6 +19,7 @@ namespace Patient_Manager
         static DocumentModelList documentList = new DocumentModelList();
         static NavigatorController navigator = new NavigatorController();
 
+        Stack<UndoAction> undoStack = new Stack<UndoAction>();
         public Form1()
         {
             documentList.AddDocumentsFromFile(PatientDocPath);
@@ -99,23 +100,12 @@ namespace Patient_Manager
             int currentColumn = dataGridView.CurrentCell?.ColumnIndex ?? 0;
             originalValue = targetRow.Visible;
             targetRow.Visible = false;
-
-            undoStack.Push(new UndoAction
-            {
-                Changes = {
-                    new CellChange {
-                        RowIndex = currentRow,
-                        ColumnIndex = 0,
-                        OldValue = originalValue,
-                        NewValue = false,
-                    }
-                }
-            });
+            undoAction.AddChange(undoStack, currentRow, 0, originalValue, false);
 
         }
 
         private object originalValue;
-        Stack<UndoAction> undoStack = new Stack<UndoAction>();
+        UndoAction undoAction = new UndoAction();
         private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             originalValue = dataGridView[e.ColumnIndex, e.RowIndex].Value;
@@ -126,55 +116,20 @@ namespace Patient_Manager
             if (Equals(originalValue, newValue))
                 return;
 
-            undoStack.Push(new UndoAction
-            {
-                Changes = { new CellChange {
-            RowIndex = e.RowIndex,
-            ColumnIndex = e.ColumnIndex,
-            OldValue = originalValue,
-            NewValue = newValue
-                }}});
+            undoAction.AddChange(undoStack, e.RowIndex, e.ColumnIndex, originalValue, newValue);
         }
-        private void UndoLast()
-        {
-            if (undoStack.Count == 0) return;
-            dataGridView.ClearSelection();
 
-            var action = undoStack.Pop();
-
-            if (action.Changes.Last().NewValue is bool && action.Changes.Last().ColumnIndex == 0)
-            {
-                dataGridView.Rows[action.Changes.Last().RowIndex].Visible = true;
-                dataGridView.Rows[action.Changes.Last().RowIndex].Selected = true;
-                dataGridView.FirstDisplayedScrollingRowIndex = action.Changes.Last().RowIndex;
-            }
-            else if (action.Changes.Last().NewValue is bool && action.Changes.Last().RowIndex == 0)
-            {
-                dataGridView.Columns[action.Changes.Last().ColumnIndex].Visible = true;
-                int col = action.Changes.Last().ColumnIndex;
-
-                foreach (DataGridViewRow row in dataGridView.Rows)
-                {
-                    if (!row.IsNewRow)
-                        row.Cells[col].Selected = true;
-                }
-                dataGridView.CurrentCell = dataGridView[action.Changes.Last().ColumnIndex, 0];
-                dataGridView.FirstDisplayedScrollingColumnIndex = action.Changes.Last().ColumnIndex;
-            }
-            else
-            {
-                // Revertimos
-                dataGridView[action.Changes.Last().ColumnIndex, action.Changes.Last().RowIndex].Value = action.Changes.Last().OldValue;
-                dataGridView.CurrentCell = dataGridView[action.Changes.Last().ColumnIndex, action.Changes.Last().RowIndex];
-            }
-
-        }
 
         private void KeyBindCTRLZ(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.Z)
             {
-                UndoLast();
+                DataGridView gridResult = undoAction.UndoLast(undoStack, dataGridView);
+                if(gridResult != null)
+                {
+                    Console.WriteLine("WHATS UP PEOPLE");
+                    dataGridView = gridResult;
+                }
             }
         }
 
@@ -209,6 +164,7 @@ namespace Patient_Manager
                     dataGridView = addColumn(dataGridView, form.columnName);
                 }
             }
+            
         }
 
         private void btnDeleteCol_Click(object sender, EventArgs e)
@@ -228,15 +184,7 @@ namespace Patient_Manager
             int currentRow = dataGridView.CurrentCell?.RowIndex?? 0;
             originalValue = targetCol.Visible;
             targetCol.Visible = false;
-            undoStack.Push(new UndoAction
-                {
-                    Changes = { new CellChange {
-                    RowIndex = 0,
-                    ColumnIndex = currentCol,
-                    OldValue = originalValue,
-                    NewValue = false,
-                            } }
-            });
+            undoAction.AddChange(undoStack, 0, currentCol, originalValue, false);
         }
 
         private void btnDeleteFile_Click(object sender, EventArgs e)
