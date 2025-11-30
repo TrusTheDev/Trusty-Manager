@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using static Patient_Manager.Controllers.GridViewController;
 namespace Patient_Manager
@@ -83,7 +84,20 @@ namespace Patient_Manager
         }
         private void btnRemoveCell(object sender, EventArgs e)
         {
-            dataGridView.Rows.RemoveAt(dataGridView.CurrentCell.RowIndex);
+            int currentRow = dataGridView.CurrentRow.Index;
+            int currentColumn = dataGridView.CurrentCell.ColumnIndex;
+            originalValue = dataGridView.CurrentRow.Visible;
+            dataGridView.CurrentRow.Visible = false;
+
+            undoStack.Push(new UndoAction
+            {
+                Changes = { new CellChange {
+                    RowIndex = currentRow,
+                    ColumnIndex = 0,
+                    OldValue = originalValue,
+                    NewValue = false,
+                } }
+            });
         }
 
         private object originalValue;
@@ -98,12 +112,14 @@ namespace Patient_Manager
             if (Equals(originalValue, newValue))
                 return;
 
-            undoStack.Push(new UndoAction(
-                e.RowIndex,
-                e.ColumnIndex,
-                originalValue,
-                newValue
-            ));
+            undoStack.Push(new UndoAction
+            {
+                Changes = { new CellChange {
+            RowIndex = e.RowIndex,
+            ColumnIndex = e.ColumnIndex,
+            OldValue = originalValue,
+            NewValue = newValue
+                }}});
         }
         private void UndoLast()
         {
@@ -111,11 +127,25 @@ namespace Patient_Manager
 
             var action = undoStack.Pop();
 
-            // Revertimos
-            dataGridView[action.ColumnIndex, action.RowIndex].Value = action.OldValue;
+            if (action.Changes.Last().NewValue is bool && action.Changes.Last().ColumnIndex == 0)
+            {
+                dataGridView.Rows[action.Changes.Last().RowIndex].Visible = true;
+                dataGridView.Rows[action.Changes.Last().RowIndex].Selected = true;
+                dataGridView.FirstDisplayedScrollingRowIndex = action.Changes.Last().RowIndex;
+            }
+            else if (action.Changes.Last().NewValue is bool && action.Changes.Last().RowIndex == 0)
+            {
+                dataGridView.Columns[action.Changes.Last().ColumnIndex].Visible = true;
+                dataGridView.Columns[action.Changes.Last().ColumnIndex].Selected = true;
+                dataGridView.FirstDisplayedScrollingRowIndex = action.Changes.Last().ColumnIndex;
+            }
+            else
+            {
+                // Revertimos
+                dataGridView[action.Changes.Last().ColumnIndex, action.Changes.Last().RowIndex].Value = action.Changes.Last().OldValue;
+                dataGridView.CurrentCell = dataGridView[action.Changes.Last().ColumnIndex, action.Changes.Last().RowIndex];
+            }
 
-            // Opcional: Enfocar la celda para mostrar claramente el cambio
-            dataGridView.CurrentCell = dataGridView[action.ColumnIndex, action.RowIndex];
         }
 
         private void KeyBindCTRLZ(object sender, KeyEventArgs e)
@@ -166,7 +196,23 @@ namespace Patient_Manager
                 MessageBox.Show("ATENCION: Columna vacía, no se puede eliminar.");
                 return;
             }
-            else dataGridView.Columns.RemoveAt(dataGridView.CurrentCell.ColumnIndex);
+            else 
+            {
+                int currentColumn = dataGridView.CurrentCell.ColumnIndex;
+                int currentRow = dataGridView.CurrentRow.Index;
+                originalValue = dataGridView.CurrentRow.Visible;
+                dataGridView.CurrentRow.Visible = false;
+
+                undoStack.Push(new UndoAction
+                {
+                    Changes = { new CellChange {
+                    RowIndex = 0,
+                    ColumnIndex = currentColumn,
+                    OldValue = originalValue,
+                    NewValue = false,
+                } }
+                });
+            }
         }
 
         private void btnDeleteFile_Click(object sender, EventArgs e)

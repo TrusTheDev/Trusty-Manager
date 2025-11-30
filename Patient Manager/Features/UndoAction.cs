@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 
 namespace Patient_Manager.Features
 {
-    internal class UndoAction
+    public class UndoAction
+    {
+        public List<CellChange> Changes { get; set; } = new List<CellChange>();
+    }
+
+    public class CellChange
     {
         public int RowIndex { get; set; }
         public int ColumnIndex { get; set; }
         public object OldValue { get; set; }
         public object NewValue { get; set; }
-        public UndoAction(int rowIndex, int columnIndex, object oldValue, object newValue)
-        {
-            RowIndex = rowIndex;
-            ColumnIndex = columnIndex;
-            OldValue = oldValue;
-            NewValue = newValue;
-        }
-
     }
+
+    public class RowColChange
+    {
+        public bool show { get; set; }
+    }
+
 }
