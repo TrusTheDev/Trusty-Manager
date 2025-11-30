@@ -1,4 +1,4 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿
 using Patient_Manager.Controllers;
 using Patient_Manager.Features;
 using Patient_Manager.Forms;
@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using static Patient_Manager.Controllers.GridViewController;
 namespace Patient_Manager
@@ -35,17 +34,29 @@ namespace Patient_Manager
         {
             addRowbtn.Location = new Point(addRowbtn.Location.X, addRowbtn.Parent.PointToClient(dataGridView.PointToScreen(dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false).Location)).Y);
         }
+        
+        private void NextLastFile(bool isNext)
+        {
+            dataGridView.ClearSelection();
+            undoStack.Clear();
+            navigator.getcurrentFile().SaveFile(dataGridView);
+            if (isNext)
+            {
+                dataGridView = documentToGridView(navigator.getNextFile(), dataGridView);
+            }
+            else
+            {
+                dataGridView = documentToGridView(navigator.getPreviousFile(), dataGridView);
+            }
+            label1.Text = navigator.getcurrentFile().FileName;
+        }
         private void btnFormer_Click(object sender, EventArgs e)
         {
-            navigator.getcurrentFile().SaveFile(dataGridView);
-            dataGridView = documentToGridView(navigator.getPreviousFile(), dataGridView);
-            label1.Text = navigator.getcurrentFile().FileName;
+            NextLastFile(false);
         }
         private void btnNextFile_Click(object sender, EventArgs e)
         {
-            navigator.getcurrentFile().SaveFile(dataGridView);
-            dataGridView = documentToGridView(navigator.getNextFile(), dataGridView);
-            label1.Text = navigator.getcurrentFile().FileName;
+            NextLastFile(true);
         }
         private void CurrentCell(object sender, EventArgs e)
         {
@@ -61,7 +72,7 @@ namespace Patient_Manager
 
             if (dataGridView.CurrentCell == null)
             {
-                // No current cell: append before new row (if present) or at end
+
                 int index = dataGridView.Rows.Count - (dataGridView.AllowUserToAddRows ? 1 : 0);
                 dataGridView.Rows.Insert(index);
                 return;
@@ -70,7 +81,7 @@ namespace Patient_Manager
             var owningRow = dataGridView.CurrentCell.OwningRow;
             if (owningRow.IsNewRow)
             {
-                // Insert before the new row (can't insert after it)
+
                 int index = dataGridView.Rows.Count - 1;
                 dataGridView.Rows.Insert(index);
             }
@@ -85,7 +96,7 @@ namespace Patient_Manager
         }
         private void btnRemoveCell(object sender, EventArgs e)
         {
-            // Determine the target row defensively
+            
           
             DataGridViewRow targetRow = null;
             if (dataGridView.CurrentCell != null)
@@ -94,7 +105,7 @@ namespace Patient_Manager
                 targetRow = dataGridView.SelectedRows[0];
 
             if (targetRow == null || targetRow.IsNewRow)
-                return; // nothing to remove
+                return; 
 
             int currentRow = targetRow.Index;
             int currentColumn = dataGridView.CurrentCell?.ColumnIndex ?? 0;
@@ -168,7 +179,7 @@ namespace Patient_Manager
 
         private void btnDeleteCol_Click(object sender, EventArgs e)
         {
-            // Determine the target row defensively
+            
 
             DataGridViewColumn targetCol = null;
             if (dataGridView.CurrentCell != null)
@@ -177,7 +188,7 @@ namespace Patient_Manager
                 targetCol = dataGridView.SelectedColumns[0];
 
             if (targetCol == null)
-                return; // nothing to remove
+                return; 
 
             int currentCol = targetCol.Index;
             int currentRow = dataGridView.CurrentCell?.RowIndex?? 0;
