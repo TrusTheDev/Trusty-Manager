@@ -1,5 +1,4 @@
-﻿using Patient_Manager.Controllers;
-using Patient_Manager.Interfaces;
+﻿using Patient_Manager.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +18,6 @@ namespace Patient_Manager.Models
         {
             foreach (var file in System.IO.Directory.GetFiles(path))
             {
-                Console.WriteLine(Path.GetExtension(file).ToLower());
                 switch (Path.GetExtension(file).ToLower())
                 {
                     case ".docx":
@@ -30,7 +28,7 @@ namespace Patient_Manager.Models
                         break;
 
                     default:
-                        throw new NotSupportedException($"El formato de archivo {Path.GetExtension(file)} no es soportado.");   
+                        throw new NotSupportedException($"El formato de archivo {Path.GetExtension(file)} no es soportado.");
                 }
             }
             //sortByDate();

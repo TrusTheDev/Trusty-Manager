@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Patient_Manager.Forms
@@ -19,7 +12,7 @@ namespace Patient_Manager.Forms
         public String columnName { get; set; }
         private void button1_Click(object sender, EventArgs e)
         {
-            if(textBox1.Text != "")
+            if (textBox1.Text != "")
             {
                 DialogResult = DialogResult.OK;
                 this.columnName = textBox1.Text;

@@ -8,16 +8,17 @@ using Xceed.Words.NET;
 
 namespace Patient_Manager.Controllers
 {
-    internal class GridViewController 
+    internal class GridViewController
     {
         public static DataGridView documentToGridView(IFile document, DataGridView gridView)
         {
-            switch (document.Format) { 
+            switch (document.Format)
+            {
                 case ".docx":
                     DocX docxDocument = (DocX)document.RepairFile();
                     return DocxToGridView(gridView, docxDocument);
                 case ".xlsx":
-                    XLWorkbook xlsxDocument = (XLWorkbook) document.RepairFile();
+                    XLWorkbook xlsxDocument = (XLWorkbook)document.RepairFile();
                     return xlsxToGridView(gridView, xlsxDocument);
                 default:
                     throw new NotSupportedException($"El formato de archivo {document.Format} no es soportado.");
@@ -26,7 +27,7 @@ namespace Patient_Manager.Controllers
         public static DataGridView xlsxToGridView(DataGridView gridView, XLWorkbook xlsx)
         {
             gridView.Columns.Clear();
-            foreach (var worksheet in  xlsx.Worksheets)
+            foreach (var worksheet in xlsx.Worksheets)
             {
                 bool isFirstRow = true;
                 foreach (var row in worksheet.RowsUsed())
@@ -82,7 +83,7 @@ namespace Patient_Manager.Controllers
         }
         static public int getSelectedmiddlePoint(DataGridView dataGridView, Button btn)
         {
-            if(dataGridView.CurrentCell != null)
+            if (dataGridView.CurrentCell != null)
             {
                 Rectangle cellRectangle = dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false);
                 Point cellLocation = dataGridView.PointToScreen(cellRectangle.Location);

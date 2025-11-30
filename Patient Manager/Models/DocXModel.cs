@@ -23,7 +23,7 @@ namespace Patient_Manager.Models
             MonthName = monthName;
             Format = format;
             Source = source;
-            Document = (DocX) RepairFile();
+            Document = (DocX)RepairFile();
             FileName = fileName;
             FilePath = filePath;
         }
@@ -81,9 +81,9 @@ namespace Patient_Manager.Models
                     if (grid.Rows[i].IsNewRow || !grid.Rows[i].Visible) continue;
 
                     for (int j = 0; j < grid.Columns.Count; j++)
-                    {      
-                            var valor = grid.Rows[i].Cells[j].Value?.ToString() ?? "";
-                            tabla.Rows[filaIndex].Cells[j].Paragraphs[0].Append(valor);               
+                    {
+                        var valor = grid.Rows[i].Cells[j].Value?.ToString() ?? "";
+                        tabla.Rows[filaIndex].Cells[j].Paragraphs[0].Append(valor);
                     }
                     filaIndex++;
                 }

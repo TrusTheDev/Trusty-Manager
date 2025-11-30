@@ -11,7 +11,7 @@ namespace Patient_Manager.Models
         public string Format { get; set; }
         public string Source { get; set; }
         public XLWorkbook Workbook { get; set; }
-        public string FileName { get; set;}
+        public string FileName { get; set; }
         public string FilePath { get; }
 
         public XlsXModel(string creationDate, string monthName, string format, string source, string fileName, string filePath)
@@ -27,7 +27,7 @@ namespace Patient_Manager.Models
         public Object RepairFile()
         {
             XLWorkbook workbook = new XLWorkbook(this.Source);
-            return  workbook;
+            return workbook;
         }
         public void SaveFile(DataGridView grid)
         {

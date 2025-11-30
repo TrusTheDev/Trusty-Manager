@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Patient_Manager.Features
@@ -11,9 +8,9 @@ namespace Patient_Manager.Features
     {
 
         public List<CellChange> Changes { get; set; } = new List<CellChange>();
-        
-        
-        public void AddChange(Stack<UndoAction> undoStack,int rowIndex, int columnIndex, object oldValue, object newValue)
+
+
+        public void AddChange(Stack<UndoAction> undoStack, int rowIndex, int columnIndex, object oldValue, object newValue)
         {
             /*
                         undoStack.Push(new UndoAction{ Changes.Add(new CellChange

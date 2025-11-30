@@ -1,14 +1,6 @@
 ﻿using Patient_Manager.Controllers;
-using Patient_Manager.Interfaces;
 using Patient_Manager.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Patient_Manager.Forms
