@@ -85,13 +85,14 @@ namespace Patient_Manager
         private void btnRemoveCell(object sender, EventArgs e)
         {
             // Determine the target row defensively
+          
             DataGridViewRow targetRow = null;
             if (dataGridView.CurrentCell != null)
                 targetRow = dataGridView.CurrentCell.OwningRow;
             else if (dataGridView.SelectedRows.Count > 0)
                 targetRow = dataGridView.SelectedRows[0];
 
-            if (targetRow == null)
+            if (targetRow == null || targetRow.IsNewRow)
                 return; // nothing to remove
 
             int currentRow = targetRow.Index;
@@ -136,6 +137,7 @@ namespace Patient_Manager
         private void UndoLast()
         {
             if (undoStack.Count == 0) return;
+            dataGridView.ClearSelection();
 
             var action = undoStack.Pop();
 
@@ -148,7 +150,14 @@ namespace Patient_Manager
             else if (action.Changes.Last().NewValue is bool && action.Changes.Last().RowIndex == 0)
             {
                 dataGridView.Columns[action.Changes.Last().ColumnIndex].Visible = true;
-                dataGridView.Columns[action.Changes.Last().ColumnIndex].Selected = true;
+                int col = action.Changes.Last().ColumnIndex;
+
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    if (!row.IsNewRow)
+                        row.Cells[col].Selected = true;
+                }
+                dataGridView.CurrentCell = dataGridView[action.Changes.Last().ColumnIndex, 0];
                 dataGridView.FirstDisplayedScrollingColumnIndex = action.Changes.Last().ColumnIndex;
             }
             else
@@ -203,28 +212,31 @@ namespace Patient_Manager
 
         private void btnDeleteCol_Click(object sender, EventArgs e)
         {
-            if (dataGridView.Columns.Count == 0)
-            {
-                MessageBox.Show("ATENCION: Columna vacía, no se puede eliminar.");
-                return;
-            }
-            else 
-            {
-                int currentColumn = dataGridView.CurrentCell.ColumnIndex;
-                int currentRow = dataGridView.CurrentRow.Index;
-                originalValue = dataGridView.Columns[currentColumn].Visible;
-                dataGridView.Columns[currentColumn].Visible = false;
+            // Determine the target row defensively
 
-                undoStack.Push(new UndoAction
+            DataGridViewColumn targetCol = null;
+            if (dataGridView.CurrentCell != null)
+                targetCol = dataGridView.CurrentCell.OwningColumn;
+            else if (dataGridView.SelectedColumns.Count > 0)
+                targetCol = dataGridView.SelectedColumns[0];
+
+            if (targetCol == null)
+                return; // nothing to remove
+
+            int currentCol = targetCol.Index;
+            int currentRow = dataGridView.CurrentCell?.RowIndex?? 0;
+            originalValue = targetCol.Visible;
+            targetCol.Visible = false;
+            Console.WriteLine("valor de current col: " + currentCol);
+            undoStack.Push(new UndoAction
                 {
                     Changes = { new CellChange {
                     RowIndex = 0,
-                    ColumnIndex = currentColumn,
+                    ColumnIndex = currentCol,
                     OldValue = originalValue,
                     NewValue = false,
-                } }
-                });
-            }
+                            } }
+            });
         }
 
         private void btnDeleteFile_Click(object sender, EventArgs e)
