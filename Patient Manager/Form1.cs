@@ -84,19 +84,31 @@ namespace Patient_Manager
         }
         private void btnRemoveCell(object sender, EventArgs e)
         {
-            int currentRow = dataGridView.CurrentRow.Index;
-            int currentColumn = dataGridView.CurrentCell.ColumnIndex;
-            originalValue = dataGridView.CurrentRow.Visible;
-            dataGridView.CurrentRow.Visible = false;
+            // Determine the target row defensively
+            DataGridViewRow targetRow = null;
+            if (dataGridView.CurrentCell != null)
+                targetRow = dataGridView.CurrentCell.OwningRow;
+            else if (dataGridView.SelectedRows.Count > 0)
+                targetRow = dataGridView.SelectedRows[0];
+
+            if (targetRow == null)
+                return; // nothing to remove
+
+            int currentRow = targetRow.Index;
+            int currentColumn = dataGridView.CurrentCell?.ColumnIndex ?? 0;
+            originalValue = targetRow.Visible;
+            targetRow.Visible = false;
 
             undoStack.Push(new UndoAction
             {
-                Changes = { new CellChange {
-                    RowIndex = currentRow,
-                    ColumnIndex = 0,
-                    OldValue = originalValue,
-                    NewValue = false,
-                } }
+                Changes = {
+                    new CellChange {
+                        RowIndex = currentRow,
+                        ColumnIndex = 0,
+                        OldValue = originalValue,
+                        NewValue = false,
+                    }
+                }
             });
         }
 
@@ -137,7 +149,7 @@ namespace Patient_Manager
             {
                 dataGridView.Columns[action.Changes.Last().ColumnIndex].Visible = true;
                 dataGridView.Columns[action.Changes.Last().ColumnIndex].Selected = true;
-                dataGridView.FirstDisplayedScrollingRowIndex = action.Changes.Last().ColumnIndex;
+                dataGridView.FirstDisplayedScrollingColumnIndex = action.Changes.Last().ColumnIndex;
             }
             else
             {
@@ -200,8 +212,8 @@ namespace Patient_Manager
             {
                 int currentColumn = dataGridView.CurrentCell.ColumnIndex;
                 int currentRow = dataGridView.CurrentRow.Index;
-                originalValue = dataGridView.CurrentRow.Visible;
-                dataGridView.CurrentRow.Visible = false;
+                originalValue = dataGridView.Columns[currentColumn].Visible;
+                dataGridView.Columns[currentColumn].Visible = false;
 
                 undoStack.Push(new UndoAction
                 {
