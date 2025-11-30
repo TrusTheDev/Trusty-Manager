@@ -63,6 +63,7 @@ namespace Patient_Manager.Controllers
                     {
                         foreach (var cell in row.Cells)
                         {
+                            if (String.IsNullOrWhiteSpace(cell.Paragraphs[0].Text)) continue;
                             gridView.Columns.Add(cell.Paragraphs[0].Text, cell.Paragraphs[0].Text);
                         }
                     }

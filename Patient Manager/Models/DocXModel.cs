@@ -64,7 +64,7 @@ namespace Patient_Manager.Models
 
                 for (int j = 0; j < grid.Columns.Count; j++)
                 {
-                    tabla.Rows[0].Cells[j].Paragraphs[0].Append(grid.Columns[j].HeaderText).Bold();
+                        tabla.Rows[0].Cells[j].Paragraphs[0].Append(grid.Columns[j].HeaderText).Bold();
                 }
 
                 int filaIndex = 1;
@@ -74,9 +74,9 @@ namespace Patient_Manager.Models
                     if (grid.Rows[i].IsNewRow) continue;
 
                     for (int j = 0; j < grid.Columns.Count; j++)
-                    {
-                        var valor = grid.Rows[i].Cells[j].Value?.ToString() ?? "";
-                        tabla.Rows[filaIndex].Cells[j].Paragraphs[0].Append(valor);
+                    {      
+                            var valor = grid.Rows[i].Cells[j].Value?.ToString() ?? "";
+                            tabla.Rows[filaIndex].Cells[j].Paragraphs[0].Append(valor);               
                     }
                     filaIndex++;
                 }
