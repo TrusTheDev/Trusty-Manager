@@ -127,7 +127,6 @@ namespace Patient_Manager
                 DataGridView gridResult = undoAction.UndoLast(undoStack, dataGridView);
                 if(gridResult != null)
                 {
-                    Console.WriteLine("WHATS UP PEOPLE");
                     dataGridView = gridResult;
                 }
             }
