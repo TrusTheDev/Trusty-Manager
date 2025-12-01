@@ -27,31 +27,40 @@ namespace Patient_Manager.Controllers
         public static DataGridView xlsxToGridView(DataGridView gridView, XLWorkbook xlsx)
         {
             gridView.Columns.Clear();
-            foreach (var worksheet in xlsx.Worksheets)
+            gridView.Rows.Clear();
+            var sheet = xlsx.Worksheet(1);
+            var range = sheet.RangeUsed();
+            if (range == null) return gridView;
+
+            int firstRow = range.FirstRow().RowNumber();
+            int lastRow = range.LastRow().RowNumber();
+            int firstCol = range.FirstColumn().ColumnNumber();
+            int lastCol = range.LastColumn().ColumnNumber();
+
+            var headerRow = sheet.Row(firstRow);
+            for (int col = firstCol; col <= lastCol; col++)
             {
-                bool isFirstRow = true;
-                foreach (var row in worksheet.RowsUsed())
-                {
-                    if (isFirstRow)
-                    {
-                        foreach (var cell in row.Cells())
-                        {
-                            gridView.Columns.Add(cell.GetString(), cell.GetString());
-                        }
-                        isFirstRow = false;
-                    }
-                    else
-                    {
-                        List<string> rowData = new List<string>();
-                        foreach (var cell in row.Cells())
-                        {
-                            rowData.Add(cell.GetString());
-                        }
-                        gridView.Rows.Add(rowData.ToArray());
-                    }
-                }
+                string header = headerRow.Cell(col).GetValue<string>();
+                if (string.IsNullOrWhiteSpace(header)) header = $"Col {col}";
+                gridView.Columns.Add(header, header);
             }
+
+            for (int row = firstRow + 1; row <= lastRow; row++)
+            {
+                var excelRow = sheet.Row(row);
+                List<string> rowData = new List<string>();
+
+                for (int col = firstCol; col <= lastCol; col++)
+                {
+                    var value = excelRow.Cell(col).GetValue<string>();
+                    rowData.Add(value);
+                }
+
+                gridView.Rows.Add(rowData.ToArray());
+            }
+
             return gridView;
+
         }
         public static DataGridView DocxToGridView(DataGridView gridView, DocX document)
         {

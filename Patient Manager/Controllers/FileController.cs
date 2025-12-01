@@ -47,7 +47,7 @@ namespace Patient_Manager.Controllers
             document.Worksheets.Add("Sheet1");
             string combinedFilePath = Path.Combine(FilePath, fileName);
             document.SaveAs(combinedFilePath);
-            documentModelList.AddDocument(new DocXModel(Convert.ToString(File.GetCreationTime(combinedFilePath).Year), Path.GetFileNameWithoutExtension(combinedFilePath), ".docx", combinedFilePath, Path.GetFileName(combinedFilePath), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\"));
+            documentModelList.AddDocument(new XlsXModel(Convert.ToString(File.GetCreationTime(combinedFilePath).Year), Path.GetFileNameWithoutExtension(combinedFilePath), ".xlsx", combinedFilePath, Path.GetFileName(combinedFilePath), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\"));
         }
 
         public static void deleteFile(string FilePath)
