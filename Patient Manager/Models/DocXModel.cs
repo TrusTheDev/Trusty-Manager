@@ -62,7 +62,7 @@ namespace Patient_Manager.Models
 
                 var tabla = temporaryDocX.AddTable(filas + 1, columnas);
 
-                for (int j = 0; j < grid.Columns.Count; j++)
+                for (int j = 0; j < columnas; j++)
                 {
                     if (grid.Columns[j].Visible)
                     {

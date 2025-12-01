@@ -171,7 +171,7 @@ namespace Patient_Manager
                 var result = form.ShowDialog(this);
                 if (result == DialogResult.OK)
                 {
-                    dataGridView = addColumn(dataGridView, form.columnName);
+                    dataGridView = GridViewController.addColumn(dataGridView, form.columnName);
                 }
             }
 
@@ -179,8 +179,6 @@ namespace Patient_Manager
 
         private void btnDeleteCol_Click(object sender, EventArgs e)
         {
-
-
             DataGridViewColumn targetCol = null;
             if (dataGridView.CurrentCell != null)
                 targetCol = dataGridView.CurrentCell.OwningColumn;
@@ -191,7 +189,7 @@ namespace Patient_Manager
                 return;
 
             int currentCol = targetCol.Index;
-            int currentRow = dataGridView.CurrentCell?.RowIndex ?? 0;
+
             originalValue = targetCol.Visible;
             targetCol.Visible = false;
             undoAction.AddChange(undoStack, 0, currentCol, originalValue, false);

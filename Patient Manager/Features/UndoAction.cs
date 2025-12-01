@@ -36,8 +36,8 @@ namespace Patient_Manager.Features
         {
             if (undoStack.Count == 0) return null;
             dataGridView.ClearSelection();
-
             var action = undoStack.Pop();
+
 
             if (action.Changes.Last().NewValue is bool && action.Changes.Last().ColumnIndex == 0)
             {
@@ -47,6 +47,7 @@ namespace Patient_Manager.Features
             }
             else if (action.Changes.Last().NewValue is bool && action.Changes.Last().RowIndex == 0)
             {
+
                 dataGridView.Columns[action.Changes.Last().ColumnIndex].Visible = true;
                 int col = action.Changes.Last().ColumnIndex;
 
