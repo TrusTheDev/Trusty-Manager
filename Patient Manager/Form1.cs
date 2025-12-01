@@ -12,6 +12,13 @@ using System.Windows.Forms;
 using static Patient_Manager.Controllers.GridViewController;
 namespace Patient_Manager
 {
+    // COSAS PARA HACER:
+    // - Mejorar la interfaz de usuario
+    // - Terminar de hacer el soporte para archivos xlsx
+    // - terminar de hacer soporte para archivos .odt (nueva libreria)
+    // - Realizar tests 
+    // - Empaquetar aplicación.
+    // - Al cerrar el programa guardar todo y hacer desaparecer las columnas?
     public partial class Form1 : Form
     {
         static String PatientDocPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\";
@@ -32,7 +39,7 @@ namespace Patient_Manager
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            addRowbtn.Location = new Point(addRowbtn.Location.X, addRowbtn.Parent.PointToClient(dataGridView.PointToScreen(dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false).Location)).Y);
+           
         }
 
         private void NextLastFile(bool isNext)
@@ -58,10 +65,7 @@ namespace Patient_Manager
         {
             NextLastFile(true);
         }
-        private void CurrentCell(object sender, EventArgs e)
-        {
-            addRowbtn.Top = getSelectedmiddlePoint(dataGridView, addRowbtn);
-        }
+
         private void BtnAddRow_Click(object sender, EventArgs e)
         {
             if (dataGridView.Columns.Count == 0)
@@ -89,10 +93,6 @@ namespace Patient_Manager
             {
                 dataGridView.Rows.Insert(owningRow.Index + 1);
             }
-        }
-        private void onRowHeight(object sender, DataGridViewRowEventArgs e)
-        {
-            addRowbtn.Top = getSelectedmiddlePoint(dataGridView, addRowbtn);
         }
         private void btnRemoveCell(object sender, EventArgs e)
         {

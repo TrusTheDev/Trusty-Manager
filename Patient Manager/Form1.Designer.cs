@@ -40,7 +40,6 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.addRowbtn = new System.Windows.Forms.Button();
             this.btnAgregarCol = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
@@ -50,7 +49,7 @@
             // button5
             // 
             this.button5.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button5.Location = new System.Drawing.Point(566, 540);
+            this.button5.Location = new System.Drawing.Point(567, 95);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 4;
@@ -60,8 +59,8 @@
             // 
             // button4
             // 
-            this.button4.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button4.Location = new System.Drawing.Point(566, 511);
+            this.button4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button4.Location = new System.Drawing.Point(206, 569);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 3;
@@ -71,7 +70,7 @@
             // 
             // button3
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button3.AutoSize = true;
             this.button3.Location = new System.Drawing.Point(44, 569);
             this.button3.Name = "button3";
@@ -83,8 +82,8 @@
             // 
             // button2
             // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button2.Location = new System.Drawing.Point(212, 8);
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(485, 8);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
@@ -94,8 +93,8 @@
             // 
             // button1
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button1.Location = new System.Drawing.Point(293, 8);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(567, 8);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -125,14 +124,12 @@
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5});
-            this.dataGridView.Location = new System.Drawing.Point(44, 37);
+            this.dataGridView.Location = new System.Drawing.Point(12, 37);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(516, 526);
+            this.dataGridView.Size = new System.Drawing.Size(549, 526);
             this.dataGridView.TabIndex = 1;
             this.dataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
             this.dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
-            this.dataGridView.CurrentCellChanged += new System.EventHandler(this.CurrentCell);
-            this.dataGridView.RowHeightChanged += new System.Windows.Forms.DataGridViewRowEventHandler(this.onRowHeight);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -159,16 +156,6 @@
             this.dataGridViewTextBoxColumn5.HeaderText = "RRN";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             // 
-            // addRowbtn
-            // 
-            this.addRowbtn.Location = new System.Drawing.Point(12, 73);
-            this.addRowbtn.Name = "addRowbtn";
-            this.addRowbtn.Size = new System.Drawing.Size(25, 23);
-            this.addRowbtn.TabIndex = 7;
-            this.addRowbtn.Text = "+";
-            this.addRowbtn.UseVisualStyleBackColor = true;
-            this.addRowbtn.Click += new System.EventHandler(this.BtnAddRow_Click);
-            // 
             // btnAgregarCol
             // 
             this.btnAgregarCol.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -193,8 +180,8 @@
             // 
             // button7
             // 
-            this.button7.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button7.Location = new System.Drawing.Point(567, 482);
+            this.button7.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button7.Location = new System.Drawing.Point(125, 569);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
             this.button7.TabIndex = 10;
@@ -208,7 +195,6 @@
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.btnAgregarCol);
-            this.Controls.Add(this.addRowbtn);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button5);
@@ -226,12 +212,6 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
@@ -244,7 +224,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.Button addRowbtn;
         private System.Windows.Forms.Button btnAgregarCol;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
