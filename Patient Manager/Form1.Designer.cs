@@ -44,19 +44,20 @@
             this.button6 = new System.Windows.Forms.Button();
             this.Button_8 = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // button5
             // 
             this.button5.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button5.Location = new System.Drawing.Point(567, 95);
+            this.button5.Location = new System.Drawing.Point(567, 124);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 4;
-            this.button5.Text = "Remover";
+            this.button5.Text = "Fila -";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.btnRemoveCell);
+            this.button5.Click += new System.EventHandler(this.BtnRemoveCell_Click);
             // 
             // button4
             // 
@@ -67,7 +68,7 @@
             this.button4.TabIndex = 3;
             this.button4.Text = "Agregar ";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.btnAddFile_Click);
+            this.button4.Click += new System.EventHandler(this.BtnAddFile_Click);
             // 
             // button3
             // 
@@ -79,7 +80,7 @@
             this.button3.TabIndex = 0;
             this.button3.Text = "Planilla";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.btnOpenFileLocation_Click);
+            this.button3.Click += new System.EventHandler(this.BtnOpenFileLocation_Click);
             // 
             // button2
             // 
@@ -90,7 +91,7 @@
             this.button2.TabIndex = 2;
             this.button2.Text = "Anterior";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.btnFormer_Click);
+            this.button2.Click += new System.EventHandler(this.BtnFormer_Click);
             // 
             // button1
             // 
@@ -101,7 +102,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Siguiente";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.btnNextFile_Click);
+            this.button1.Click += new System.EventHandler(this.BtnNextFile_Click);
             // 
             // label1
             // 
@@ -129,8 +130,8 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(549, 526);
             this.dataGridView.TabIndex = 1;
-            this.dataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
-            this.dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            this.dataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DataGridView1_CellBeginEdit);
+            this.dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -166,7 +167,7 @@
             this.btnAgregarCol.TabIndex = 8;
             this.btnAgregarCol.Text = "Columna +";
             this.btnAgregarCol.UseVisualStyleBackColor = true;
-            this.btnAgregarCol.Click += new System.EventHandler(this.btnAddCol_Click);
+            this.btnAgregarCol.Click += new System.EventHandler(this.BtnAddCol_Click);
             // 
             // button6
             // 
@@ -177,7 +178,7 @@
             this.button6.TabIndex = 9;
             this.button6.Text = "Columna -";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.btnDeleteCol_Click);
+            this.button6.Click += new System.EventHandler(this.BtnDeleteCol_Click);
             // 
             // Button_8
             // 
@@ -188,22 +189,34 @@
             this.Button_8.TabIndex = 10;
             this.Button_8.Text = "Borrar Archivo";
             this.Button_8.UseVisualStyleBackColor = true;
-            this.Button_8.Click += new System.EventHandler(this.btnDeleteFile_Click);
+            this.Button_8.Click += new System.EventHandler(this.BtnDeleteFile_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnSave.Location = new System.Drawing.Point(125, 569);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 11;
             this.btnSave.Text = "Guardar";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSaveFile);
+            this.btnSave.Click += new System.EventHandler(this.BtnSaveFile_Click);
+            // 
+            // button7
+            // 
+            this.button7.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.button7.Location = new System.Drawing.Point(567, 95);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 12;
+            this.button7.Text = "Fila +";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.BtnAddRow_Click);
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(654, 604);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.Button_8);
             this.Controls.Add(this.button6);
@@ -242,6 +255,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button Button_8;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button button7;
     }
 }
 

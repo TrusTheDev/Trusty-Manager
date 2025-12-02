@@ -32,10 +32,10 @@ namespace Patient_Manager.Models
         }
         public void SaveFile(DataGridView grid)
         {
-            gridViewToXlsx(grid);
+            GridViewToXlsx(grid);
             Workbook.Save();
         }
-        public void gridViewToXlsx(DataGridView grid)
+        public void GridViewToXlsx(DataGridView grid)
         {
             XLWorkbook temporaryXlsx = new XLWorkbook();
             var worksheet = temporaryXlsx.Worksheets.Add("Sheet1");

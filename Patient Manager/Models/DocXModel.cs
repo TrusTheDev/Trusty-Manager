@@ -50,7 +50,7 @@ namespace Patient_Manager.Models
             return doc;
         }
 
-        public void gridViewToDocX(DataGridView grid)
+        public void GridViewToDocX(DataGridView grid)
         {
             if (grid.Rows.Count != 0)
             {
@@ -105,7 +105,7 @@ namespace Patient_Manager.Models
         }
         public void SaveFile(DataGridView grid)
         {
-            gridViewToDocX(grid);
+            GridViewToDocX(grid);
             Document.Save();
         }
     }

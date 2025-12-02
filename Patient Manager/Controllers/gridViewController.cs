@@ -114,5 +114,19 @@ namespace Patient_Manager.Controllers
             }
             return gridView;
         }
+
+        public static DataGridView addRow(DataGridView gridView)
+        {
+            if (gridView == null)
+            {
+                throw new ArgumentNullException(nameof(gridView));
+            }
+            if (gridView.Columns.Count == 0)
+            {
+                return gridView;
+            }
+            gridView.Rows.Add();
+            return gridView;
+        }
     }
 }

@@ -7,13 +7,13 @@ namespace Patient_Manager.Controllers
     {
         int Pointer { get; set; }
         DocumentModelList List { get; set; }
-        public void assignFile(DocumentModelList list)
+        public void AssignFile(DocumentModelList list)
         {
             List = list;
             Pointer = list.ReturnLastPosition();
         }
         
-        public IFile getNextFile()
+        public IFile GetNextFile()
         {
             if (Pointer == List.ReturnLastPosition())
             {
@@ -26,11 +26,11 @@ namespace Patient_Manager.Controllers
             return List[Pointer];
         }
 
-        public IFile getPreviousFile()
+        public IFile GetPreviousFile()
         {
             if (Pointer == List.ReturnFirstPosition())
             {
-                getLastFile();
+                GetLastFile();
             }
             else
             {
@@ -39,12 +39,12 @@ namespace Patient_Manager.Controllers
             return List[Pointer];
         }
 
-        public IFile getcurrentFile()
+        public IFile GetcurrentFile()
         {
             return List[Pointer];
         }
 
-        public IFile getLastFile()
+        public IFile GetLastFile()
         {
             Pointer = List.ReturnLastPosition();
             return List[Pointer];

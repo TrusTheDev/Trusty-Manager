@@ -33,7 +33,7 @@ namespace Patient_Manager.Models
             }
         }
 
-        public void combineLists(DocumentModelList otherList)
+        public void CombineLists(DocumentModelList otherList)
         {
             foreach (var document in otherList.DocumentList)
             {

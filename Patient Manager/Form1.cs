@@ -13,34 +13,32 @@ using static Patient_Manager.Controllers.GridViewController;
 namespace Patient_Manager
 {
     // COSAS PARA HACER:
-    // - Realizar tests 
     // - Empaquetar aplicación.
-    // - Al cerrar el programa guardar todo y hacer desaparecer las columnas?
     public partial class Form1 : Form
     {
-        static String PatientDocPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\";
-        static DocumentModelList documentList = new DocumentModelList();
-        static NavigatorController navigator = new NavigatorController();
+        static readonly String patientDocPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\";
+        static readonly DocumentModelList documentList = new DocumentModelList();
+        static readonly NavigatorController navigator = new NavigatorController();
 
-        bool Changed;
+        bool changed;
         int stackCount;
-        Stack<UndoAction> undoStack = new Stack<UndoAction>();
+        readonly Stack<UndoAction> undoStack = new Stack<UndoAction>();
         public Form1()
         {
-            documentList.AddDocumentsFromFile(PatientDocPath);
-            navigator.assignFile(documentList);
+            documentList.AddDocumentsFromFile(patientDocPath);
+            navigator.AssignFile(documentList);
             this.KeyPreview = true;
             InitializeComponent();
-            var document = navigator.getLastFile();
+            var document = navigator.GetLastFile();
             label1.Text = document.FileName;
             dataGridView = documentToGridView(document, dataGridView);
-            Changed = false;
+            changed = false;
             stackCount = 0;
 
         }
-        private bool somethingChanged()
+        private bool SomethingChanged()
         {
-                return stackCount != 0 || Changed;
+                return stackCount != 0 || changed;
         }
 
         private void NextLastFile(bool isNext)
@@ -48,72 +46,39 @@ namespace Patient_Manager
             dataGridView.ClearSelection();
             undoStack.Clear();
 
-            if (somethingChanged())
+            if (SomethingChanged())
             {
                 using (var form = new SaveForm())
                 {
                     var result = form.ShowDialog();
                     if (result == DialogResult.Yes)
                     {
-                        saveFile();
+                        SaveFile();
                     }
                 }
             }
             if (isNext)
             {
-                dataGridView = documentToGridView(navigator.getNextFile(), dataGridView);
+                dataGridView = documentToGridView(navigator.GetNextFile(), dataGridView);
             }
             else
             {
-                dataGridView = documentToGridView(navigator.getPreviousFile(), dataGridView);
+                dataGridView = documentToGridView(navigator.GetPreviousFile(), dataGridView);
             }
-            label1.Text = navigator.getcurrentFile().FileName;
-            Changed = false;
+            label1.Text = navigator.GetcurrentFile().FileName;
+            changed = false;
             stackCount = 0;
         }
-        private void btnFormer_Click(object sender, EventArgs e)
+        private void BtnFormer_Click(object sender, EventArgs e)
         {
             NextLastFile(false);
         }
-        private void btnNextFile_Click(object sender, EventArgs e)
+        private void BtnNextFile_Click(object sender, EventArgs e)
         {
             NextLastFile(true);
         }
-
-        private void BtnAddRow_Click(object sender, EventArgs e)
+        private void BtnRemoveCell_Click(object sender, EventArgs e)
         {
-            if (dataGridView.Columns.Count == 0)
-            {
-                MessageBox.Show("ATENCION: Columna vacía, agrega una.");
-                return;
-            }
-
-            if (dataGridView.CurrentCell == null)
-            {
-
-                int index = dataGridView.Rows.Count - (dataGridView.AllowUserToAddRows ? 1 : 0);
-                dataGridView.Rows.Insert(index);
-                Changed = true;
-                return;
-            }
-
-            var owningRow = dataGridView.CurrentCell.OwningRow;
-            if (owningRow.IsNewRow)
-            {
-
-                int index = dataGridView.Rows.Count - 1;
-                dataGridView.Rows.Insert(index);
-            }
-            else
-            {
-                dataGridView.Rows.Insert(owningRow.Index + 1);
-                Changed = true;
-            }
-        }
-        private void btnRemoveCell(object sender, EventArgs e)
-        {
-
-
             DataGridViewRow targetRow = null;
             if (dataGridView.CurrentCell != null)
                 targetRow = dataGridView.CurrentCell.OwningRow;
@@ -124,15 +89,14 @@ namespace Patient_Manager
                 return;
 
             int currentRow = targetRow.Index;
-            int currentColumn = dataGridView.CurrentCell?.ColumnIndex ?? 0;
             originalValue = targetRow.Visible;
             targetRow.Visible = false;
             undoAction.AddChange(undoStack, currentRow, 0, originalValue, false);
-            Changed = true;
+            changed = true;
         }
 
         private object originalValue;
-        UndoAction undoAction = new UndoAction();
+        readonly UndoAction undoAction = new UndoAction();
         private void KeyBindCTRLZ(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.Z)
@@ -145,11 +109,11 @@ namespace Patient_Manager
                 }
             }
         }
-        private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        private void DataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             originalValue = dataGridView[e.ColumnIndex, e.RowIndex].Value;
         }
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             var newValue = dataGridView[e.ColumnIndex, e.RowIndex].Value;
             if (Equals(originalValue, newValue))
@@ -158,45 +122,45 @@ namespace Patient_Manager
             undoAction.AddChange(undoStack, e.RowIndex, e.ColumnIndex, originalValue, newValue);
             stackCount++;
         }
-        private void btnOpenFileLocation_Click(object sender, EventArgs e)
+        private void BtnOpenFileLocation_Click(object sender, EventArgs e)
         {
-            string filePath = Path.Combine(PatientDocPath, navigator.getcurrentFile().FileName);
+            string filePath = Path.Combine(patientDocPath, navigator.GetcurrentFile().FileName);
             Process.Start("explorer.exe", $"/select,\"{filePath}\"");
         }
-        private void btnAddFile_Click(object sender, EventArgs e)
+        private void BtnAddFile_Click(object sender, EventArgs e)
         {
             using (var form = new AddDocumentForm())
             {
                 var result = form.ShowDialog(this);
                 if (result == DialogResult.OK)
                 {
-                    documentList.combineLists(form.FileModelList);
-                    navigator.assignFile(documentList);
-                    dataGridView = documentToGridView(navigator.getLastFile(), dataGridView);
-                    label1.Text = navigator.getcurrentFile().FileName;
-                    Changed = true;
+                    documentList.CombineLists(form.FileModelList);
+                    navigator.AssignFile(documentList);
+                    dataGridView = documentToGridView(navigator.GetLastFile(), dataGridView);
+                    label1.Text = navigator.GetcurrentFile().FileName;
+                    changed = true;
                 }
             }
         }
-        private void btnDeleteFile_Click(object sender, EventArgs e)
+        private void BtnDeleteFile_Click(object sender, EventArgs e)
         {
             DialogResult = MessageBox.Show("¿Estás seguro de que deseas eliminar el archivo?", "Si", MessageBoxButtons.YesNo);
             if (DialogResult == DialogResult.Yes)
             {
-                documentList.RemoveFile(navigator.getcurrentFile());
-                navigator.assignFile(documentList);
-                dataGridView = documentToGridView(navigator.getcurrentFile(), dataGridView);
-                label1.Text = navigator.getcurrentFile().FileName;
+                documentList.RemoveFile(navigator.GetcurrentFile());
+                navigator.AssignFile(documentList);
+                dataGridView = documentToGridView(navigator.GetcurrentFile(), dataGridView);
+                label1.Text = navigator.GetcurrentFile().FileName;
             }
         }
-        private void saveFile()
+        private void SaveFile()
         {
-            navigator.getcurrentFile().SaveFile(dataGridView);
-            Changed = false;
+            navigator.GetcurrentFile().SaveFile(dataGridView);
+            changed = false;
             stackCount = 0;
         }
 
-        private void btnAddCol_Click(object sender, EventArgs e)
+        private void BtnAddCol_Click(object sender, EventArgs e)
         {
             using (var form = new AddColumnForm())
             {
@@ -204,13 +168,19 @@ namespace Patient_Manager
                 if (result == DialogResult.OK)
                 {
                     dataGridView = GridViewController.addColumn(dataGridView, form.columnName);
-                    Changed = true;
+                    changed = true;
                 }
             }
 
         }
 
-        private void btnDeleteCol_Click(object sender, EventArgs e)
+        private void BtnAddRow_Click(object sender, EventArgs e)
+        {
+            dataGridView = GridViewController.addRow(dataGridView);
+            changed = true;
+        }
+
+        private void BtnDeleteCol_Click(object sender, EventArgs e)
         {
             DataGridViewColumn targetCol = null;
             if (dataGridView.CurrentCell != null)
@@ -226,15 +196,9 @@ namespace Patient_Manager
             originalValue = targetCol.Visible;
             targetCol.Visible = false;
             undoAction.AddChange(undoStack, 0, currentCol, originalValue, false);
-            Changed = true;
+            changed = true;
         }
         
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             using (var form = new SaveOnExit())
@@ -242,7 +206,7 @@ namespace Patient_Manager
                 var result = form.ShowDialog();
                 if (result == DialogResult.Yes)
                 {
-                    saveFile();
+                    SaveFile();
                 }
                 else if (result == DialogResult.Cancel)
                 {
@@ -251,16 +215,18 @@ namespace Patient_Manager
             }
         }
 
-        private void btnSaveFile(object sender, EventArgs e)
+        private void BtnSaveFile_Click(object sender, EventArgs e)
         {
             using (var form = new SaveForm())
             {
                 var result = form.ShowDialog();
                 if (result == DialogResult.Yes)
                 {
-                    saveFile();
+                    SaveFile();
                 }
             }
         }
+
+
     }
 }
