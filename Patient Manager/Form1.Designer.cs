@@ -42,7 +42,8 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAgregarCol = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.Button_8 = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             // button4
             // 
             this.button4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button4.Location = new System.Drawing.Point(206, 569);
+            this.button4.Location = new System.Drawing.Point(287, 569);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 3;
@@ -83,7 +84,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(485, 8);
+            this.button2.Location = new System.Drawing.Point(486, 8);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 2;
@@ -163,7 +164,7 @@
             this.btnAgregarCol.Name = "btnAgregarCol";
             this.btnAgregarCol.Size = new System.Drawing.Size(75, 23);
             this.btnAgregarCol.TabIndex = 8;
-            this.btnAgregarCol.Text = "+ Columna";
+            this.btnAgregarCol.Text = "Columna +";
             this.btnAgregarCol.UseVisualStyleBackColor = true;
             this.btnAgregarCol.Click += new System.EventHandler(this.btnAddCol_Click);
             // 
@@ -174,25 +175,37 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 9;
-            this.button6.Text = "- Columna";
+            this.button6.Text = "Columna -";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.btnDeleteCol_Click);
             // 
-            // button7
+            // Button_8
             // 
-            this.button7.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button7.Location = new System.Drawing.Point(125, 569);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 23);
-            this.button7.TabIndex = 10;
-            this.button7.Text = "Borrar Archivo";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.btnDeleteFile_Click);
+            this.Button_8.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.Button_8.Location = new System.Drawing.Point(206, 569);
+            this.Button_8.Name = "Button_8";
+            this.Button_8.Size = new System.Drawing.Size(75, 23);
+            this.Button_8.TabIndex = 10;
+            this.Button_8.Text = "Borrar Archivo";
+            this.Button_8.UseVisualStyleBackColor = true;
+            this.Button_8.Click += new System.EventHandler(this.btnDeleteFile_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnSave.Location = new System.Drawing.Point(125, 569);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 11;
+            this.btnSave.Text = "Guardar";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSaveFile);
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(654, 604);
-            this.Controls.Add(this.button7);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.Button_8);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.btnAgregarCol);
             this.Controls.Add(this.dataGridView);
@@ -203,6 +216,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyBindCTRLZ);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
@@ -226,7 +240,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.Button btnAgregarCol;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button Button_8;
+        private System.Windows.Forms.Button btnSave;
     }
 }
 

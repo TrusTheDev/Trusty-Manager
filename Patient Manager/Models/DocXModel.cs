@@ -72,8 +72,6 @@ namespace Patient_Manager.Models
                     }
                 }
 
-                
-
                 var tabla = temporaryDocX.AddTable(filas + 1, columnas);
 
                 for (int j = 0; j < columnas; j++)
