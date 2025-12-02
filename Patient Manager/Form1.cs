@@ -12,8 +12,6 @@ using System.Windows.Forms;
 using static Patient_Manager.Controllers.GridViewController;
 namespace Patient_Manager
 {
-    // COSAS PARA HACER:
-    // - Empaquetar aplicación.
     public partial class Form1 : Form
     {
         static readonly String patientDocPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\";
