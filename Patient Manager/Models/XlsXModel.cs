@@ -40,7 +40,20 @@ namespace Patient_Manager.Models
             XLWorkbook temporaryXlsx = new XLWorkbook();
             var worksheet = temporaryXlsx.Worksheets.Add("Sheet1");
             int filas = grid.Rows.Cast<DataGridViewRow>().Count(r => !r.IsNewRow);
-            int columnas = grid.Columns.Cast<DataGridViewColumn>().Count(c => c.Visible);
+            int columnas = grid.ColumnCount;
+            int noVisibles = grid.Columns.Cast<DataGridViewColumn>().Count(c => !c.Visible);
+
+            if (noVisibles > 0)
+            {
+                for (int i = 0; i < columnas; i++)
+                {
+                    if (!grid.Columns[i].Visible)
+                    {
+                        grid.Columns.RemoveAt(i);
+                        columnas--;
+                    }
+                }
+            }
 
             for (int j = 0; j < columnas; j++)
             {
