@@ -15,7 +15,7 @@ namespace Patient_Manager
 {
     public partial class Form1 : Form
     {
-        static readonly String Files = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Files\";
+        static readonly String Files = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Trusty Manager", "Files");
         static readonly DocumentModelList documentList = new DocumentModelList();
         static readonly NavigatorController navigator = new NavigatorController();
 
@@ -24,6 +24,7 @@ namespace Patient_Manager
         readonly Stack<UndoAction> undoStack = new Stack<UndoAction>();
         public Form1()
         {
+            if(!Directory.Exists(Files)) Directory.CreateDirectory(Files);
             InitializeComponent();
             if (Directory.EnumerateFileSystemEntries(Files).Any())
             {

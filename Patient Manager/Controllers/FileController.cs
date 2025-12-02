@@ -12,7 +12,7 @@ namespace Patient_Manager.Controllers
     {
         public DocumentModelList DocumentModelList { get; set; }
 
-        string FilePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Files\";
+        string FilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Trusty Manager", "Files");
         public FileController()
         {
             DocumentModelList = new DocumentModelList();
