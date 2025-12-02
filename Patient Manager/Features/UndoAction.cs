@@ -6,21 +6,9 @@ namespace Patient_Manager.Features
 {
     public class UndoAction
     {
-
         public List<CellChange> Changes { get; set; } = new List<CellChange>();
-
-
         public void AddChange(Stack<UndoAction> undoStack, int rowIndex, int columnIndex, object oldValue, object newValue)
         {
-            /*
-                        undoStack.Push(new UndoAction{ Changes.Add(new CellChange
-                        {
-                            RowIndex = rowIndex,
-                            ColumnIndex = columnIndex,
-                            OldValue = oldValue,
-                            NewValue = newValue
-                        });
-            */
             undoStack.Push(new UndoAction
             {
                 Changes = { new CellChange {
@@ -61,7 +49,6 @@ namespace Patient_Manager.Features
             }
             else
             {
-                // Revertimos
                 dataGridView[action.Changes.Last().ColumnIndex, action.Changes.Last().RowIndex].Value = action.Changes.Last().OldValue;
                 dataGridView.CurrentCell = dataGridView[action.Changes.Last().ColumnIndex, action.Changes.Last().RowIndex];
             }
@@ -76,11 +63,6 @@ namespace Patient_Manager.Features
         public int ColumnIndex { get; set; }
         public object OldValue { get; set; }
         public object NewValue { get; set; }
-    }
-
-    public class RowColChange
-    {
-        public bool show { get; set; }
     }
 }
 

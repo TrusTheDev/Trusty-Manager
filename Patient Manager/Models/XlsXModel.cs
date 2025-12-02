@@ -35,12 +35,6 @@ namespace Patient_Manager.Models
             gridViewToXlsx(grid);
             Workbook.Save();
         }
-
-        public void createFile(string fileName)
-        {
-            throw new NotImplementedException();
-        }
-
         public void gridViewToXlsx(DataGridView grid)
         {
             XLWorkbook temporaryXlsx = new XLWorkbook();
@@ -72,10 +66,7 @@ namespace Patient_Manager.Models
                 filaIndex++;
             }
             this.Workbook = temporaryXlsx;
-            Workbook.SaveAs(this.Source);
-
-            
-            
+            Workbook.SaveAs(this.Source);           
         }
     }
 }

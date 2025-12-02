@@ -90,22 +90,6 @@ namespace Patient_Manager.Controllers
             }
             return gridView;
         }
-        static public int getSelectedmiddlePoint(DataGridView dataGridView, Button btn)
-        {
-            if (dataGridView.CurrentCell != null)
-            {
-                Rectangle cellRectangle = dataGridView.GetCellDisplayRectangle(dataGridView.CurrentCell.ColumnIndex, dataGridView.CurrentCell.RowIndex, false);
-                Point cellLocation = dataGridView.PointToScreen(cellRectangle.Location);
-                Point parentLocation = btn.Parent.PointToClient(cellLocation);
-                int middleY = parentLocation.Y + (cellRectangle.Height / 2) - (btn.Height / 2);
-                return middleY;
-            }
-            else
-            {
-                return btn.Location.Y;
-            }
-        }
-
         public static DataGridView addColumn(DataGridView gridView, string columnName)
         {
             if (gridView == null)
