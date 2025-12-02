@@ -157,9 +157,17 @@ namespace Patient_Manager
                 if (DialogResult == DialogResult.Yes)
                 {
                     documentList.RemoveFile(navigator.GetcurrentFile());
-                    navigator.AssignFile(documentList);
-                    dataGridView = DocumentToGridView(navigator.GetcurrentFile(), dataGridView);
-                    label1.Text = navigator.GetcurrentFile().FileName;
+                    if(!documentList.IsEmpty())
+                    {
+                        navigator.AssignFile(documentList);
+                        dataGridView = DocumentToGridView(navigator.GetcurrentFile(), dataGridView);
+                        label1.Text = navigator.GetcurrentFile().FileName;
+                    }else
+                    {
+                        dataGridView.Rows.Clear();
+                        dataGridView.Columns.Clear();
+                        label1.Text = "Archivo actual: ninguno";
+                    }
                 }
             }
         }
