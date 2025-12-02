@@ -58,7 +58,21 @@ namespace Patient_Manager.Models
 
                 int filas = grid.Rows.Cast<DataGridViewRow>().Count(r => !r.IsNewRow);
                 int columnas = grid.ColumnCount;
+                int noVisibles = grid.Columns.Cast<DataGridViewColumn>().Count(c => !c.Visible);
 
+                if(noVisibles > 0)
+                {
+                    for(int i=0; i < columnas; i++)
+                    {
+                        if (!grid.Columns[i].Visible)
+                        {
+                            grid.Columns.RemoveAt(i);
+                            columnas--;
+                        }
+                    }
+                }
+
+                
 
                 var tabla = temporaryDocX.AddTable(filas + 1, columnas);
 

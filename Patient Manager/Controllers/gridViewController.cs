@@ -110,12 +110,7 @@ namespace Patient_Manager.Controllers
                 {
                     continue;
                 }
-
-                // Avoid adding duplicate columns (checks by column Name)
-                if (!gridView.Columns.Contains(name))
-                {
                     gridView.Columns.Add(name, name);
-                }
             }
             return gridView;
         }
