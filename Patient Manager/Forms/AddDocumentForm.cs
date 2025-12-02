@@ -15,17 +15,12 @@ namespace Patient_Manager.Forms
             InitializeComponent();
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void BtnOk_Click(object sender, EventArgs e)
         {
             if (textBox1.Text != "")
             {
-                fileController.createFile(textBox1.Text);
-                this.FileModelList = fileController.documentModelList;
+                fileController.CreateFile(textBox1.Text);
+                this.FileModelList = fileController.DocumentModelList;
                 DialogResult = DialogResult.OK;
                 Close();
             }
@@ -35,19 +30,9 @@ namespace Patient_Manager.Forms
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

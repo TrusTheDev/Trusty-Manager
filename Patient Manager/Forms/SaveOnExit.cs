@@ -17,17 +17,17 @@ namespace Patient_Manager.Forms
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void BtnSi_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Yes;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void BtnNo_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.No;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
         }

@@ -59,7 +59,7 @@ namespace Patient_Manager.Models
         public void RemoveFile(IFile document)
         {
             DocumentList.Remove(document);
-            deleteFile(document.Source);
+            DeleteFile(document.Source);
         }
     }
 }

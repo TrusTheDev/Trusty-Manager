@@ -29,7 +29,7 @@ namespace Patient_Manager
             InitializeComponent();
             var document = navigator.GetLastFile();
             label1.Text = document.FileName;
-            dataGridView = documentToGridView(document, dataGridView);
+            dataGridView = DocumentToGridView(document, dataGridView);
             changed = false;
             stackCount = 0;
 
@@ -57,11 +57,11 @@ namespace Patient_Manager
             }
             if (isNext)
             {
-                dataGridView = documentToGridView(navigator.GetNextFile(), dataGridView);
+                dataGridView = DocumentToGridView(navigator.GetNextFile(), dataGridView);
             }
             else
             {
-                dataGridView = documentToGridView(navigator.GetPreviousFile(), dataGridView);
+                dataGridView = DocumentToGridView(navigator.GetPreviousFile(), dataGridView);
             }
             label1.Text = navigator.GetcurrentFile().FileName;
             changed = false;
@@ -134,7 +134,7 @@ namespace Patient_Manager
                 {
                     documentList.CombineLists(form.FileModelList);
                     navigator.AssignFile(documentList);
-                    dataGridView = documentToGridView(navigator.GetLastFile(), dataGridView);
+                    dataGridView = DocumentToGridView(navigator.GetLastFile(), dataGridView);
                     label1.Text = navigator.GetcurrentFile().FileName;
                     changed = true;
                 }
@@ -147,7 +147,7 @@ namespace Patient_Manager
             {
                 documentList.RemoveFile(navigator.GetcurrentFile());
                 navigator.AssignFile(documentList);
-                dataGridView = documentToGridView(navigator.GetcurrentFile(), dataGridView);
+                dataGridView = DocumentToGridView(navigator.GetcurrentFile(), dataGridView);
                 label1.Text = navigator.GetcurrentFile().FileName;
             }
         }
@@ -165,7 +165,7 @@ namespace Patient_Manager
                 var result = form.ShowDialog(this);
                 if (result == DialogResult.OK)
                 {
-                    dataGridView = GridViewController.addColumn(dataGridView, form.columnName);
+                    dataGridView = GridViewController.AddColumn(dataGridView, form.columnName);
                     changed = true;
                 }
             }
@@ -174,7 +174,7 @@ namespace Patient_Manager
 
         private void BtnAddRow_Click(object sender, EventArgs e)
         {
-            dataGridView = GridViewController.addRow(dataGridView);
+            dataGridView = GridViewController.AddRow(dataGridView);
             changed = true;
         }
 
@@ -199,16 +199,19 @@ namespace Patient_Manager
         
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            using (var form = new SaveOnExit())
+            if (SomethingChanged())
             {
-                var result = form.ShowDialog();
-                if (result == DialogResult.Yes)
+                using (var form = new SaveOnExit())
                 {
-                    SaveFile();
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    e.Cancel = true; 
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.Yes)
+                    {
+                        SaveFile();
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        e.Cancel = true;
+                    }
                 }
             }
         }

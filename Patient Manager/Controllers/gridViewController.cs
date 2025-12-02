@@ -10,7 +10,7 @@ namespace Patient_Manager.Controllers
 {
     internal class GridViewController
     {
-        public static DataGridView documentToGridView(IFile document, DataGridView gridView)
+        public static DataGridView DocumentToGridView(IFile document, DataGridView gridView)
         {
             switch (document.Format)
             {
@@ -19,12 +19,12 @@ namespace Patient_Manager.Controllers
                     return DocxToGridView(gridView, docxDocument);
                 case ".xlsx":
                     XLWorkbook xlsxDocument = (XLWorkbook)document.RepairFile();
-                    return xlsxToGridView(gridView, xlsxDocument);
+                    return XlsxToGridView(gridView, xlsxDocument);
                 default:
                     throw new NotSupportedException($"El formato de archivo {document.Format} no es soportado.");
             }
         }
-        public static DataGridView xlsxToGridView(DataGridView gridView, XLWorkbook xlsx)
+        public static DataGridView XlsxToGridView(DataGridView gridView, XLWorkbook xlsx)
         {
             gridView.Columns.Clear();
             gridView.Rows.Clear();
@@ -90,7 +90,7 @@ namespace Patient_Manager.Controllers
             }
             return gridView;
         }
-        public static DataGridView addColumn(DataGridView gridView, string columnName)
+        public static DataGridView AddColumn(DataGridView gridView, string columnName)
         {
             if (gridView == null)
             {
@@ -115,7 +115,7 @@ namespace Patient_Manager.Controllers
             return gridView;
         }
 
-        public static DataGridView addRow(DataGridView gridView)
+        public static DataGridView AddRow(DataGridView gridView)
         {
             if (gridView == null)
             {
