@@ -21,10 +21,10 @@ namespace Patient_Manager.Models
                 switch (Path.GetExtension(file).ToLower())
                 {
                     case ".docx":
-                        AddDocument(new DocXModel(Convert.ToString(File.GetCreationTime(path).Year), Path.GetFileNameWithoutExtension(file), ".docx", Path.Combine(path, Path.GetFileName(file)), Path.GetFileName(file), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\"));
+                        AddDocument(new DocXModel(Convert.ToString(File.GetCreationTime(path).Year), Path.GetFileNameWithoutExtension(file), ".docx", Path.Combine(path, Path.GetFileName(file)), Path.GetFileName(file), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Files\"));
                         break;
                     case ".xlsx":
-                        AddDocument(new XlsXModel(Convert.ToString(File.GetCreationTime(path).Year), Path.GetFileNameWithoutExtension(file), ".xlsx", Path.Combine(path, Path.GetFileName(file)), Path.GetFileName(file), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\"));
+                        AddDocument(new XlsXModel(Convert.ToString(File.GetCreationTime(path).Year), Path.GetFileNameWithoutExtension(file), ".xlsx", Path.Combine(path, Path.GetFileName(file)), Path.GetFileName(file), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Files\"));
                         break;
 
                     default:
@@ -60,6 +60,11 @@ namespace Patient_Manager.Models
         {
             DocumentList.Remove(document);
             DeleteFile(document.Source);
+        }
+
+        public bool IsEmpty()
+        {
+            return !DocumentList.Any();
         }
     }
 }

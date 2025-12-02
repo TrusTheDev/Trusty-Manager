@@ -8,13 +8,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using static Patient_Manager.Controllers.GridViewController;
 namespace Patient_Manager
 {
     public partial class Form1 : Form
     {
-        static readonly String patientDocPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\";
+        static readonly String Files = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Files\";
         static readonly DocumentModelList documentList = new DocumentModelList();
         static readonly NavigatorController navigator = new NavigatorController();
 
@@ -23,16 +24,18 @@ namespace Patient_Manager
         readonly Stack<UndoAction> undoStack = new Stack<UndoAction>();
         public Form1()
         {
-            documentList.AddDocumentsFromFile(patientDocPath);
-            navigator.AssignFile(documentList);
-            this.KeyPreview = true;
             InitializeComponent();
-            var document = navigator.GetLastFile();
-            label1.Text = document.FileName;
-            dataGridView = DocumentToGridView(document, dataGridView);
-            changed = false;
-            stackCount = 0;
-
+            if (Directory.EnumerateFileSystemEntries(Files).Any())
+            {
+                documentList.AddDocumentsFromFile(Files);
+                navigator.AssignFile(documentList);
+                this.KeyPreview = true;
+                var document = navigator.GetLastFile();
+                label1.Text = document.FileName;
+                dataGridView = DocumentToGridView(document, dataGridView);
+                changed = false;
+                stackCount = 0;
+            }
         }
         private bool SomethingChanged()
         {
@@ -41,31 +44,34 @@ namespace Patient_Manager
 
         private void NextLastFile(bool isNext)
         {
-            dataGridView.ClearSelection();
-            undoStack.Clear();
-
-            if (SomethingChanged())
+            if (!documentList.IsEmpty())
             {
-                using (var form = new SaveForm())
+                dataGridView.ClearSelection();
+                undoStack.Clear();
+
+                if (SomethingChanged())
                 {
-                    var result = form.ShowDialog();
-                    if (result == DialogResult.Yes)
+                    using (var form = new SaveForm())
                     {
-                        SaveFile();
+                        var result = form.ShowDialog();
+                        if (result == DialogResult.Yes)
+                        {
+                            SaveFile();
+                        }
                     }
                 }
+                if (isNext)
+                {
+                    dataGridView = DocumentToGridView(navigator.GetNextFile(), dataGridView);
+                }
+                else
+                {
+                    dataGridView = DocumentToGridView(navigator.GetPreviousFile(), dataGridView);
+                }
+                label1.Text = navigator.GetcurrentFile().FileName;
+                changed = false;
+                stackCount = 0;
             }
-            if (isNext)
-            {
-                dataGridView = DocumentToGridView(navigator.GetNextFile(), dataGridView);
-            }
-            else
-            {
-                dataGridView = DocumentToGridView(navigator.GetPreviousFile(), dataGridView);
-            }
-            label1.Text = navigator.GetcurrentFile().FileName;
-            changed = false;
-            stackCount = 0;
         }
         private void BtnFormer_Click(object sender, EventArgs e)
         {
@@ -122,8 +128,11 @@ namespace Patient_Manager
         }
         private void BtnOpenFileLocation_Click(object sender, EventArgs e)
         {
-            string filePath = Path.Combine(patientDocPath, navigator.GetcurrentFile().FileName);
-            Process.Start("explorer.exe", $"/select,\"{filePath}\"");
+            if (!documentList.IsEmpty())
+            {
+                string filePath = Path.Combine(Files, navigator.GetcurrentFile().FileName);
+                Process.Start("explorer.exe", $"/select,\"{filePath}\"");
+            } else { Process.Start("explorer.exe", Files); }        
         }
         private void BtnAddFile_Click(object sender, EventArgs e)
         {
@@ -137,18 +146,21 @@ namespace Patient_Manager
                     dataGridView = DocumentToGridView(navigator.GetLastFile(), dataGridView);
                     label1.Text = navigator.GetcurrentFile().FileName;
                     changed = true;
-                }
+                } else { return; }
             }
         }
         private void BtnDeleteFile_Click(object sender, EventArgs e)
         {
-            DialogResult = MessageBox.Show("¿Estás seguro de que deseas eliminar el archivo?", "Si", MessageBoxButtons.YesNo);
-            if (DialogResult == DialogResult.Yes)
+            if (!documentList.IsEmpty())
             {
-                documentList.RemoveFile(navigator.GetcurrentFile());
-                navigator.AssignFile(documentList);
-                dataGridView = DocumentToGridView(navigator.GetcurrentFile(), dataGridView);
-                label1.Text = navigator.GetcurrentFile().FileName;
+                DialogResult = MessageBox.Show("¿Estás seguro de que deseas eliminar el archivo?", "Si", MessageBoxButtons.YesNo);
+                if (DialogResult == DialogResult.Yes)
+                {
+                    documentList.RemoveFile(navigator.GetcurrentFile());
+                    navigator.AssignFile(documentList);
+                    dataGridView = DocumentToGridView(navigator.GetcurrentFile(), dataGridView);
+                    label1.Text = navigator.GetcurrentFile().FileName;
+                }
             }
         }
         private void SaveFile()
@@ -160,13 +172,18 @@ namespace Patient_Manager
 
         private void BtnAddCol_Click(object sender, EventArgs e)
         {
-            using (var form = new AddColumnForm())
+            if (!documentList.IsEmpty())
             {
-                var result = form.ShowDialog(this);
-                if (result == DialogResult.OK)
+
+
+                using (var form = new AddColumnForm())
                 {
-                    dataGridView = GridViewController.AddColumn(dataGridView, form.columnName);
-                    changed = true;
+                    var result = form.ShowDialog(this);
+                    if (result == DialogResult.OK)
+                    {
+                        dataGridView = GridViewController.AddColumn(dataGridView, form.columnName);
+                        changed = true;
+                    }
                 }
             }
 
@@ -174,43 +191,54 @@ namespace Patient_Manager
 
         private void BtnAddRow_Click(object sender, EventArgs e)
         {
-            dataGridView = GridViewController.AddRow(dataGridView);
-            changed = true;
+            if (!documentList.IsEmpty())
+            {
+                dataGridView = GridViewController.AddRow(dataGridView);
+                changed = true;
+            }
         }
 
         private void BtnDeleteCol_Click(object sender, EventArgs e)
         {
-            DataGridViewColumn targetCol = null;
-            if (dataGridView.CurrentCell != null)
-                targetCol = dataGridView.CurrentCell.OwningColumn;
-            else if (dataGridView.SelectedColumns.Count > 0)
-                targetCol = dataGridView.SelectedColumns[0];
+            if (!documentList.IsEmpty())
+            {
+                DataGridViewColumn targetCol = null;
+                if (dataGridView.CurrentCell != null)
+                    targetCol = dataGridView.CurrentCell.OwningColumn;
+                else if (dataGridView.SelectedColumns.Count > 0)
+                    targetCol = dataGridView.SelectedColumns[0];
 
-            if (targetCol == null)
-                return;
+                if (targetCol == null)
+                    return;
 
-            int currentCol = targetCol.Index;
+                int currentCol = targetCol.Index;
 
-            originalValue = targetCol.Visible;
-            targetCol.Visible = false;
-            undoAction.AddChange(undoStack, 0, currentCol, originalValue, false);
-            changed = true;
+                originalValue = targetCol.Visible;
+                targetCol.Visible = false;
+                undoAction.AddChange(undoStack, 0, currentCol, originalValue, false);
+                changed = true;
+            }
         }
         
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (SomethingChanged())
+            if (!documentList.IsEmpty())
             {
-                using (var form = new SaveOnExit())
+
+
+                if (SomethingChanged())
                 {
-                    var result = form.ShowDialog();
-                    if (result == DialogResult.Yes)
+                    using (var form = new SaveOnExit())
                     {
-                        SaveFile();
-                    }
-                    else if (result == DialogResult.Cancel)
-                    {
-                        e.Cancel = true;
+                        var result = form.ShowDialog();
+                        if (result == DialogResult.Yes)
+                        {
+                            SaveFile();
+                        }
+                        else if (result == DialogResult.Cancel)
+                        {
+                            e.Cancel = true;
+                        }
                     }
                 }
             }
@@ -218,12 +246,15 @@ namespace Patient_Manager
 
         private void BtnSaveFile_Click(object sender, EventArgs e)
         {
-            using (var form = new SaveForm())
+            if (!documentList.IsEmpty())
             {
-                var result = form.ShowDialog();
-                if (result == DialogResult.Yes)
+                using (var form = new SaveForm())
                 {
-                    SaveFile();
+                    var result = form.ShowDialog();
+                    if (result == DialogResult.Yes)
+                    {
+                        SaveFile();
+                    }
                 }
             }
         }

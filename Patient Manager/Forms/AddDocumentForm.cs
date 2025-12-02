@@ -17,22 +17,21 @@ namespace Patient_Manager.Forms
 
         private void BtnOk_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != "")
+            if (textBox1.Text != "" && fileController.CreateFile(textBox1.Text))
             {
-                fileController.CreateFile(textBox1.Text);
                 this.FileModelList = fileController.DocumentModelList;
                 DialogResult = DialogResult.OK;
                 Close();
             }
             else
             {
-                MessageBox.Show("Por favor ingrese un nombre válido para el archivo.", "Nombre inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor ingrese un nombre y un formato válido para el archivo.","Nombre o formato inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult = DialogResult.Cancel;
         }
     }
 }

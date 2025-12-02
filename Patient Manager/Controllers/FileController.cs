@@ -12,24 +12,24 @@ namespace Patient_Manager.Controllers
     {
         public DocumentModelList DocumentModelList { get; set; }
 
-        string FilePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\";
+        string FilePath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Files\";
         public FileController()
         {
             DocumentModelList = new DocumentModelList();
         }
-        public void CreateFile(string fileName)
+        public bool CreateFile(string fileName)
         {
             switch (fileName.Split('.').Last())
             {
                 case "docx":
                     CreateDocX(fileName);
-                    break;
+
+                    return true;
                 case "xlsx":
                     CreateXlsx(fileName);
-                    break;
+                    return true;
                 default:
-                    MessageBox.Show("El archivo no es soportado");
-                    break;
+                    return false;
             }
         }
 
@@ -38,7 +38,7 @@ namespace Patient_Manager.Controllers
             DocX document = DocX.Create(fileName);
             string combinedFilePath = Path.Combine(FilePath, fileName);
             document.SaveAs(combinedFilePath);
-            DocumentModelList.AddDocument(new DocXModel(Convert.ToString(File.GetCreationTime(combinedFilePath).Year), Path.GetFileNameWithoutExtension(combinedFilePath), ".docx", combinedFilePath, Path.GetFileName(combinedFilePath), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\"));
+            DocumentModelList.AddDocument(new DocXModel(Convert.ToString(File.GetCreationTime(combinedFilePath).Year), Path.GetFileNameWithoutExtension(combinedFilePath), ".docx", combinedFilePath, Path.GetFileName(combinedFilePath), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Files\"));
         }
 
         public void CreateXlsx(string fileName)
@@ -47,7 +47,7 @@ namespace Patient_Manager.Controllers
             document.Worksheets.Add("Sheet1");
             string combinedFilePath = Path.Combine(FilePath, fileName);
             document.SaveAs(combinedFilePath);
-            DocumentModelList.AddDocument(new XlsXModel(Convert.ToString(File.GetCreationTime(combinedFilePath).Year), Path.GetFileNameWithoutExtension(combinedFilePath), ".xlsx", combinedFilePath, Path.GetFileName(combinedFilePath), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\PatientDocs\"));
+            DocumentModelList.AddDocument(new XlsXModel(Convert.ToString(File.GetCreationTime(combinedFilePath).Year), Path.GetFileNameWithoutExtension(combinedFilePath), ".xlsx", combinedFilePath, Path.GetFileName(combinedFilePath), Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\Files\"));
         }
 
         public static void DeleteFile(string FilePath)
