@@ -78,7 +78,7 @@ Installation completed.
 
 Trusty Manager is still under development. The current version may contain bugs or unexpected behavior.
 
-Use this software at your own risk. The author is not responsible for any loss of data or information. It is strongly recommended to create backups before each use of the program.
+Use this software at your own risk. The author is not responsible for any loss of data or information. It is strongly recommended to create backups of your files before and after each use of the program.
 
 ## 🚩 Useful Information
 
