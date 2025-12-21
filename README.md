@@ -10,7 +10,6 @@ Trusty-Manager serves as a flexible foundation for creating automation tools, ad
 
 ## Example of a Derived Project – Trusty Patient Manager
 ![Patient-Manager](https://github.com/user-attachments/assets/a3c28e20-0de7-4bb9-b77a-0477b1cbfa38)
-
 ## ✨ Generic Features
 
 ### ✔️ Basic Table Operations
@@ -52,7 +51,7 @@ Trusty-Manager serves as a flexible foundation for creating automation tools, ad
 ## Trusty Manager 
 ![Trusty-Manager](https://github.com/user-attachments/assets/ade797fb-5f9b-4d7b-87c4-532097bc5b22)
 
-### Dependencies (Developers Only)
+### Dependencies
 
 **Framework**
 - WinForms
@@ -77,7 +76,7 @@ Installation completed.
 
 ## ⚠️ Disclaimer
 
-Trusty Manager is still under active development. The current version may contain bugs or unexpected behavior.
+Trusty Manager is still under development. The current version may contain bugs or unexpected behavior.
 
 Use this software at your own risk. The author is not responsible for any loss of data or information. It is strongly recommended to create backups before each use of the program.
 
