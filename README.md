@@ -9,7 +9,8 @@ More details can be found in the [Features](##✨Features) section.
 Trusty-Manager serves as a flexible foundation for creating automation tools, administrative systems, and data-processing applications without relying directly on Microsoft Excel or Word.
 
 ## Example of a Derived Project – Trusty Patient Manager
-![Trusty Patient manager](https://i.imgur.com/GwsGopp.gif)
+![Patient-Manager](https://github.com/user-attachments/assets/a3c28e20-0de7-4bb9-b77a-0477b1cbfa38)
+
 ## ✨ Generic Features
 
 ### ✔️ Basic Table Operations
@@ -49,7 +50,7 @@ Trusty-Manager serves as a flexible foundation for creating automation tools, ad
 * Allows exporting and working with spreadsheet-like documents.
   
 ## Trusty Manager 
-![Trusty Manager](https://i.imgur.com/S8p4Pmx.gif)
+![Trusty-Manager](https://github.com/user-attachments/assets/ade797fb-5f9b-4d7b-87c4-532097bc5b22)
 
 ### Dependencies (Developers Only)
 
