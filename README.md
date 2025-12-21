@@ -68,7 +68,7 @@ Trusty-Manager serves as a flexible foundation for creating automation tools, ad
 
 Before installing, please read the [Disclaimer](#disclaimer) section below.
 
-1. Download the latest version (Windows only).
+1. [Download](https://github.com/TrusTheDev/Trusty-Manager/releases/tag/Windows) the latest version (Windows only).
 2. Extract the downloaded archive to a directory of your choice.
 3. Run `setup.exe` and follow the on-screen instructions.
 
