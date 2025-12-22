@@ -235,8 +235,6 @@
   <ItemGroup>
     <Content Include="documents_papers_sheets_icon_187064.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="docs\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
