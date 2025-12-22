@@ -7,16 +7,16 @@
     <ProjectGuid>{1884D14D-DB26-4214-BACB-DD2AEDE8B5FA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>TrustyManager</RootNamespace>
-    <AssemblyName>Trusty Manager</AssemblyName>
+    <AssemblyName>TrustyManager</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\ivanb\Desktop\New folder\Trusty-Manager\</PublishUrl>
+    <PublishUrl>A:\CSHARPO\projects\Trusty-Manager\TrustyManager\docs\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
@@ -25,7 +25,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>https://trusthedev.github.io/Trusty-Manager/</UpdateUrl>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>11</ApplicationRevision>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>14</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -234,6 +235,8 @@
   <ItemGroup>
     <Content Include="documents_papers_sheets_icon_187064.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="docs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
