@@ -84,4 +84,4 @@ Use this software at your own risk. The author is not responsible for any loss o
 
 - Windows Defender or other security software may block the application. If this happens, add the program to your exclusions list.
 - If you accidentally delete a file, you can recover it from the Recycle Bin.
-- You can uninstall with ease using Add or remove program on windows, make sure to delete C:\Users\User\Documents\Patient Manager
+- You can uninstall with ease using add or remove on windows settings, make sure to delete C:\Users\User\Documents\Patient Manager
