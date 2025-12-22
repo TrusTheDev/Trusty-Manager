@@ -1,4 +1,4 @@
-# Trusty manager
+# Trusty Manager
 
 ## 📖 Description
 Trusty Manager is an open-source template project developed in C# using WinForms, designed to help developers build custom solutions for automating table-based workflows similar to Excel through a DataGridView.
