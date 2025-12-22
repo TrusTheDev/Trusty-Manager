@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1884D14D-DB26-4214-BACB-DD2AEDE8B5FA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Trusty_Manager</RootNamespace>
+    <RootNamespace>TrustyManager</RootNamespace>
     <AssemblyName>Trusty Manager</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -233,7 +233,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="documento-de-word.ico" />
     <Content Include="documents_papers_sheets_icon_187064.ico" />
   </ItemGroup>
   <ItemGroup>

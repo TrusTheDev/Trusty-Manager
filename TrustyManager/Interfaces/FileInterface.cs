@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-namespace Patient_Manager.Interfaces
+namespace TrustyManager.Interfaces
 {
     public interface IFile
     {

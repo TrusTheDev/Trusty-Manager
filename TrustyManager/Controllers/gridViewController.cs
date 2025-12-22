@@ -1,12 +1,12 @@
 ﻿using ClosedXML.Excel;
-using Patient_Manager.Interfaces;
+using TrustyManager.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Xceed.Words.NET;
 
-namespace Patient_Manager.Controllers
+namespace TrustyManager.Controllers
 {
     internal class GridViewController
     {

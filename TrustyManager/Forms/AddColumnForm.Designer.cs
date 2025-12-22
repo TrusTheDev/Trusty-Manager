@@ -1,4 +1,4 @@
-﻿namespace Patient_Manager.Forms
+﻿namespace TrustyManager.Forms
 {
     partial class AddColumnForm
     {
@@ -94,7 +94,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddColumnForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Form1";
+            this.Text = "¡Atención!";
             this.ResumeLayout(false);
             this.PerformLayout();
 

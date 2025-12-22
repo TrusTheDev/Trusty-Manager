@@ -1,9 +1,9 @@
 ﻿using ClosedXML.Excel;
-using Patient_Manager.Interfaces;
+using TrustyManager.Interfaces;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-namespace Patient_Manager.Models
+namespace TrustyManager.Models
 {
     internal class XlsXModel : IFile
     {

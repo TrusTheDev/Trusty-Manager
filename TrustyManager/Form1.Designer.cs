@@ -1,4 +1,4 @@
-﻿namespace Patient_Manager
+﻿namespace TrustyManager
 {
     partial class Form1
     {

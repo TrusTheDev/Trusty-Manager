@@ -1,9 +1,9 @@
-﻿using Patient_Manager.Controllers;
-using Patient_Manager.Models;
+﻿using TrustyManager.Controllers;
+using TrustyManager.Models;
 using System;
 using System.Windows.Forms;
 
-namespace Patient_Manager.Forms
+namespace TrustyManager.Forms
 {
     public partial class AddDocumentForm : Form
 

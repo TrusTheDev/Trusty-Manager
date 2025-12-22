@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Patient_Manager.Forms
+namespace TrustyManager.Forms
 {
     public partial class SaveOnExit : Form
     {

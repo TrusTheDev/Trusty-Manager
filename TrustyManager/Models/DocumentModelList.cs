@@ -1,10 +1,10 @@
-﻿using Patient_Manager.Interfaces;
+﻿using TrustyManager.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static Patient_Manager.Controllers.FileController;
-namespace Patient_Manager.Models
+using static TrustyManager.Controllers.FileController;
+namespace TrustyManager.Models
 {
     public class DocumentModelList
     {

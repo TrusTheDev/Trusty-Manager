@@ -1,8 +1,8 @@
 ﻿
-using Patient_Manager.Controllers;
-using Patient_Manager.Features;
-using Patient_Manager.Forms;
-using Patient_Manager.Models;
+using TrustyManager.Controllers;
+using TrustyManager.Features;
+using TrustyManager.Forms;
+using TrustyManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,8 +10,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using static Patient_Manager.Controllers.GridViewController;
-namespace Patient_Manager
+using static TrustyManager.Controllers.GridViewController;
+namespace TrustyManager
 {
     public partial class Form1 : Form
     {

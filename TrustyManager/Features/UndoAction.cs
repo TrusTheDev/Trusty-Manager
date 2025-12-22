@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Patient_Manager.Features
+namespace TrustyManager.Features
 {
     public class UndoAction
     {

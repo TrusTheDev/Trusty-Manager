@@ -1,4 +1,4 @@
-﻿namespace Patient_Manager.Forms
+﻿namespace TrustyManager.Forms
 {
     partial class SaveOnExit
     {
@@ -86,7 +86,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SaveOnExit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Form1";
+            this.Text = "¡Atención!";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Patient_Manager
+namespace TrustyManager
 {
     internal static class Program
     {

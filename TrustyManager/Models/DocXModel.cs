@@ -1,11 +1,11 @@
-﻿using Patient_Manager.Interfaces;
+﻿using TrustyManager.Interfaces;
 using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
 using Xceed.Words.NET;
-namespace Patient_Manager.Models
+namespace TrustyManager.Models
 {
     internal class DocXModel : IFile
     {

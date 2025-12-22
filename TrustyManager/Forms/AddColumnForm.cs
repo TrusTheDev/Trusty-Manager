@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Patient_Manager.Forms
+namespace TrustyManager.Forms
 {
     public partial class AddColumnForm : Form
     {

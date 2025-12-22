@@ -1,7 +1,7 @@
-﻿using Patient_Manager.Interfaces;
-using Patient_Manager.Models;
+﻿using TrustyManager.Interfaces;
+using TrustyManager.Models;
 using System;
-namespace Patient_Manager.Controllers
+namespace TrustyManager.Controllers
 {
     internal class NavigatorController
     {

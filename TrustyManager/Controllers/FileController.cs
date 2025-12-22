@@ -1,12 +1,12 @@
 ﻿using ClosedXML.Excel;
-using Patient_Manager.Models;
+using TrustyManager.Models;
 using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Xceed.Words.NET;
 
-namespace Patient_Manager.Controllers
+namespace TrustyManager.Controllers
 {
     internal class FileController
     {
