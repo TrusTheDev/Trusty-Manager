@@ -20,7 +20,7 @@ That’s it. Trusty Manager is ready to use.
 ## File Management
 
 ### **Abrir**
-Opens the default directory:
+Opens the default directory located in: C:\Users\User\Documents\Trusty Manager\Files
 
 
 This allows quick access to all managed files directly from the Windows File Explorer.
@@ -61,8 +61,6 @@ Moves focus to the **previous file** in the file list.
 
 ### **Siguiente**
 Moves focus to the **next file** in the file list.
-
-This allows fast navigation without reopening the file explorer.
 
 ---
 
@@ -148,3 +146,16 @@ This allows better visualization for long text or large values.
 - Automatically updates bound data
 - Handles selection, sorting, and resizing natively
 - Optimized for Excel-like usage inside WinForms
+
+## Uninstall
+
+You can uninstall Trusty Manager using the standard **Windows “Add or Remove Programs”** feature.
+
+> Note: Uninstalling the application **does not delete user files** stored in:
+>
+> ```
+> Documents\Trusty Manager
+> ```
+
+This ensures that your documents remain safe even after removing the application.
+
